@@ -1,0 +1,17 @@
+.ButtonContainer {
+  display: inline-block;
+  margin: 10px;
+
+  .Button {
+    cursor: pointer;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    outline: none;
+    background-color: #343A40;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+  }
+}
+
+
