@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-
-import { moviesData } from '../../movies.data';
-
-import MovieDetails from '../MovieDetails/MovieDetails';
-import MovieCard from "../MovieCard/MovieCard";
+import MovieDetails from './MovieDetails/MovieDetails';
+import MovieCard from "./MovieCard/MovieCard";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import CustomInput from "../../components/CustomInput/CustomInput";
 
+import { moviesData } from '../../movies.data';
 import styles from './Homepage.module.scss';
 
 
@@ -105,7 +103,7 @@ class HomePage extends Component {
     return (
       <div className='container-fluid'>
         <div className='row'>
-          <div className='col-sm-7'>
+          <div className='col-md-7'>
             <form className={styles.SortMoviesForm}>
               <div>
                 <h2>Sort movies</h2>
@@ -121,17 +119,18 @@ class HomePage extends Component {
             </form>
             <div className={styles.CardContainer}>
               { filteredMovies.map(movie =>
-                <MovieCard
-                  key={movie.id}
-                  movieClickHandler={this.movieClickHandler}
-                  changeLikesHandler={this.changeLikesHandler}
-                  changeStarsHandler={this.changeStarsHandler}
-                  {...movie}
-                />
-              )}
+                  <MovieCard
+                    key={movie.id}
+                    movieClickHandler={this.movieClickHandler}
+                    changeLikesHandler={this.changeLikesHandler}
+                    changeStarsHandler={this.changeStarsHandler}
+                    {...movie}
+                  />
+                )
+              }
             </div>
           </div>
-          <div className='col-sm-5'>
+          <div className='col-md-5'>
             { this.state.activeMovieID ? <MovieDetails {...activeMovie} /> : <h2 className={styles.SelectPostLabel}>Select movie</h2> }
           </div>
         </div>

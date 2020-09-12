@@ -5,7 +5,7 @@ import { faStar as EmptyStar } from "@fortawesome/free-regular-svg-icons";
 
 import styles from './Rating.module.scss';
 
-const Rating = ({ movieId, rate, changeStarsHandler }) => {
+const Rating = ({ movieId, rate, changeStarsHandler = null }) => {
   const starTypes = new Array(rate).fill('solid').concat(new Array(5 - rate).fill('empty'));
 
   const stars = starTypes.map((type, index) => {

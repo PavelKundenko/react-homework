@@ -1,13 +1,14 @@
 import React from 'react';
-import Rating from "../../components/Rating/Rating";
+import Rating from "../../../components/Rating/Rating";
+
 import styles from './MovieDetails.module.scss';
 
 const MovieDetails = ({ title, posterUrl, description, likes, stars, director, actors, genres }) => (
   <div className={styles.MovieDetails}>
     <h1>{title}</h1>
-    <div className={styles.MovieInfoContainer}>
-      <img className={styles.MoviePoster} src={posterUrl} alt='Movie poster' />
-      <ul className={styles.MovieInfo}>
+    <div className={`${styles.MovieInfoContainer} row`}>
+      <img className={`${styles.MoviePoster} col-lg-6`} src={posterUrl} alt='Movie poster' />
+      <ul className={`${styles.MovieInfo} col-lg-6`}>
         <li>
           Likes: {likes}
         </li>
@@ -28,7 +29,7 @@ const MovieDetails = ({ title, posterUrl, description, likes, stars, director, a
         </li>
       </ul>
     </div>
-    </div>
+  </div>
 );
 
 export default MovieDetails;

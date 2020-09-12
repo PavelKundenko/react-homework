@@ -5,12 +5,12 @@ import styles from './App.module.scss';
 function App() {
   return (
     <div className={styles.App}>
-      <header className="">
+      <header>
         <h1>Movies</h1>
       </header>
       <HomePage />
-      <footer className="">
-        &copy; EPAM 2020
+      <footer>
+        &copy; Pavel Kundenko EPAM 2020
       </footer>
     </div>
   );

@@ -1,11 +1,12 @@
 import React from "react";
-import styles from './MovieCard.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
-import Rating from "../../components/Rating/Rating";
+import Rating from "../../../components/Rating/Rating";
+
+import styles from './MovieCard.module.scss';
 
 const MovieCard = ({id, title, posterUrl, likes, stars, movieClickHandler, changeLikesHandler, changeStarsHandler }) => (
-  <div className={`${styles.Card} col-sm-3`}>
+  <div className={`${styles.Card} col-lg-3 col-sm-5`}>
     <div>
       <img className={styles.MoviePoster} src={posterUrl} alt="Movie poster"/>
       <h3 className={styles.CartTitle} onClick={() => movieClickHandler(id)}>{title}</h3>

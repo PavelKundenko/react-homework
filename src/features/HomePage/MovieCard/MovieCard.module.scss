@@ -4,6 +4,11 @@
   border: 1px solid #343A40;
   border-radius: 5px;
   padding: 0 0 30px;
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+  }
 
   .CartTitle {
     margin-bottom: 20px;
@@ -36,6 +41,7 @@
     margin: 0 5px;
     font-size: 20px;
     color: lightblue;
+    cursor: pointer;
     &.Like {
       color: #007BFF;
     }
