@@ -1,9 +1,11 @@
 import {moviesData} from "../../movies.data";
+import {actorsData} from "../../actors.data";
 import HomepageTypes from "./homepage.types";
-import { changeRating, changeLikes, sortMoviesByProperty } from "./homepage.utils";
+import {changeRating, changeLikes, sortMoviesByProperty, editMovie, deleteMovie} from "./homepage.utils";
 
 const INITIAL_STATE = {
   movies: moviesData.slice(0),
+  actors: actorsData.slice(0),
   activeMovieId: null,
   searchFieldValue: '',
   sortByLikesAscending: true,
@@ -60,6 +62,18 @@ export const homepageReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         movies: moviesData.slice(0)
+      };
+
+    case HomepageTypes.EDIT_MOVIE:
+      return {
+        ...state,
+        movies: editMovie(state.movies, action.payload.editableMovieId, action.payload.editableMovieData)
+      };
+
+    case HomepageTypes.DELETE_MOVIE:
+      return {
+        ...state,
+        movies: deleteMovie(state.movies, action.payload.movieId)
       };
 
     default:

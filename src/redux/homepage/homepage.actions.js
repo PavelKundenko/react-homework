@@ -55,3 +55,18 @@ export const sortByRating = () => ({
 export const resetSorting = () => ({
   type: HomepageTypes.RESET_SORTING
 });
+
+export const editMovie = (editableMovieId, editableMovieData) => ({
+  type: HomepageTypes.EDIT_MOVIE,
+  payload: {
+    editableMovieId,
+    editableMovieData
+  }
+});
+
+export const deleteMovie = (movieId) => ({
+  type: HomepageTypes.DELETE_MOVIE,
+  payload: {
+    movieId
+  }
+});

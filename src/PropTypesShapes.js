@@ -7,7 +7,7 @@ export const movie = PropTypes.shape({
   stars: PropTypes.number.isRequired,
   likes: PropTypes.number.isRequired,
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  actors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  actors: PropTypes.arrayOf(PropTypes.number).isRequired,
   director: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired
 }).isRequired;

@@ -1,31 +1,29 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import styles from './CustomTextarea.module.scss';
+import PropTypes from "prop-types";
 
-import styles from './CustomInput.module.scss';
-
-const CustomInput = ({ type, placeholder, changeHandler, label, id, value, required }) => (
-  <div className={styles.InputContainer}>
+const CustomTextarea = ({ placeholder, changeHandler, label, id, value, required }) => (
+  <div className={styles.TextareaContainer}>
     {
       label ?
         <label className={styles.Label} htmlFor={id}>{label}</label>
         :
         null
     }
-    <input
-      className={styles.Input}
-      type={type}
+    <textarea
+      className={styles.Textarea}
       placeholder={placeholder}
       onChange={changeHandler}
-      name={label}
       id={id}
       defaultValue={value}
       required={required}
-    />
+      rows='10'
+    >
+    </textarea>
   </div>
 );
 
-CustomInput.propTypes = {
-  type: PropTypes.string.isRequired,
+CustomTextarea.propTypes = {
   placeholder: PropTypes.string,
   changeHandler: PropTypes.func,
   label: PropTypes.string,
@@ -33,8 +31,8 @@ CustomInput.propTypes = {
   value: PropTypes.string
 };
 
-CustomInput.defaultProps = {
+CustomTextarea.defaultProps = {
   value: ''
 };
 
-export default CustomInput;
+export default CustomTextarea;

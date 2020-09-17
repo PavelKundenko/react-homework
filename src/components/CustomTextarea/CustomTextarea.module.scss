@@ -1,25 +1,25 @@
-.InputContainer {
+.TextareaContainer {
   margin: 10px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-
-  .Input {
-    width: 80%;
-    padding: 10px 15px;
-    font-size: 18px;
-    border: 1px solid #343A40;
-    border-radius: 5px;
-
-    &:focus {
-      outline: none;
-    }
-  }
 
   .Label {
     font-size: 20px;
     margin-right: 20px;
   }
 
+  .Textarea {
+    width: 80%;
+    padding: 10px 15px;
+    font-size: 18px;
+    border: 1px solid #343A40;
+    border-radius: 5px;
+    resize: vertical;
+    overflow-y: hidden;
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
