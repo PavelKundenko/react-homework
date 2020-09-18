@@ -1,5 +1,4 @@
-const HomepageTypes = {
-  SET_ACTIVE_MOVIE: 'SET_ACTIVE_MOVIE',
+const MoviesTypes = {
   ADD_LIKE: 'ADD_LIKE',
   REMOVE_LIKE: 'REMOVE_LIKE',
   CHANGE_MOVIE_RATING: 'CHANGE_MOVIE_STARS',
@@ -11,4 +10,4 @@ const HomepageTypes = {
   DELETE_MOVIE: 'DELETE_MOVIE'
 };
 
-export default HomepageTypes;
+export default MoviesTypes;

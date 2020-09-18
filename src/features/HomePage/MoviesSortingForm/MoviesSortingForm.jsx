@@ -6,7 +6,7 @@ import CustomButton from "../../../components/CustomButton/CustomButton";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 
 import styles from './MoviesSortingForm.module.scss';
-import {searchValueChanged, sortByLikes, sortByRating, resetSorting} from "../../../redux/homepage/homepage.actions";
+import {searchValueChanged, sortByLikes, sortByRating, resetSorting} from "../../../redux/movies/movies.actions";
 
 const MoviesSortingForm = ({ searchFieldValueChanged, sortByLikes, sortByRating, resetSorting }) => {
   return (
@@ -17,11 +17,13 @@ const MoviesSortingForm = ({ searchFieldValueChanged, sortByLikes, sortByRating,
         <CustomButton value="By rating" clickHandler={sortByRating} />
         <CustomButton value="Reset" clickHandler={resetSorting} />
       </div>
-      <CustomInput
-        type="text"
-        changeHandler={searchFieldValueChanged}
-        placeholder="Enter movie title"
-      />
+      <div className='col-lg-5 col-md-7 col-sm-10'>
+        <CustomInput
+          type="text"
+          changeHandler={searchFieldValueChanged}
+          placeholder="Enter movie title"
+        />
+      </div>
     </form>
   )
 };

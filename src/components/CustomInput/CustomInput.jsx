@@ -12,7 +12,7 @@ const CustomInput = ({ type, placeholder, changeHandler, label, id, value, requi
         null
     }
     <input
-      className={styles.Input}
+      className={`${styles.Input} ${label ? styles.WithLabel : ''}`}
       type={type}
       placeholder={placeholder}
       onChange={changeHandler}

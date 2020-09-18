@@ -9,8 +9,8 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 
 import styles from './EditMoviePage.module.scss';
 
-import { editMovie } from '../../redux/homepage/homepage.actions';
-import {moviesDataSelector} from "../../redux/homepage/homepage.selectors";
+import { editMovie } from '../../redux/movies/movies.actions';
+import {moviesDataSelector} from "../../redux/movies/movies.selectors";
 
 const EditMoviePage = ({ match, movies, editMovie, history }) => {
   const editableMovieId = Number(match.params.id);
@@ -81,6 +81,8 @@ const EditMoviePage = ({ match, movies, editMovie, history }) => {
     }
   };
 
+  const goBackHandler = () => history.push(`/movie/${id}`);
+
   return (
     <div className='container'>
       <div className='row justify-content-center'>
@@ -131,11 +133,14 @@ const EditMoviePage = ({ match, movies, editMovie, history }) => {
           />
           <div className={styles.ButtonsContainer}>
             <CustomButton
+              type='submit'
               value='Submit'
               clickHandler={submitHandler}
             />
             <CustomButton
+              type='button'
               value='Go back'
+              clickHandler={goBackHandler}
             />
           </div>
           <div className={styles.ErrorsContainer}>

@@ -7,7 +7,7 @@ import MovieCard from "./MovieCard/MovieCard";
 
 import styles from "./MoviesGallery.module.scss";
 
-import {moviesDataSelector, searchFieldValueSelector} from "../../../redux/homepage/homepage.selectors";
+import {moviesDataSelector, searchFieldValueSelector} from "../../../redux/movies/movies.selectors";
 
 
 const MoviesGallery = ({ movies, searchFieldValue }) => {

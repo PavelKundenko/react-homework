@@ -1,7 +1,3 @@
-.MoviePoster {
-  max-height: 600px;
-}
-
 .MovieInfoTopbar {
   display: flex;
   justify-content: space-between;
@@ -16,7 +12,8 @@
     li {
       margin-top: 10px;
     }
-    img {
+    .MoviePoster {
+      max-height: 600px;
       width: 50%;
     }
   }

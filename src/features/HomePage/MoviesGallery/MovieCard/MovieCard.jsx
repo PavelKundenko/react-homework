@@ -10,7 +10,7 @@ import Rating from "../../../../components/Rating/Rating";
 
 import styles from './MovieCard.module.scss';
 
-import {addLike, changeMovieRating, removeLike} from "../../../../redux/homepage/homepage.actions";
+import {addLike, changeMovieRating, removeLike} from "../../../../redux/movies/movies.actions";
 
 const MovieCard = ({id, title, posterUrl, likes, stars, addLike, removeLike, changeRating }) => (
   <div className={`${styles.Card} col-lg-3 col-sm-5`}>

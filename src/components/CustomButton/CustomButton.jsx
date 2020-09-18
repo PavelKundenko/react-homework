@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import styles from './CustomButton.module.scss';
 
-const CustomButton = ({value, clickHandler}) => (
+const CustomButton = ({value, clickHandler, type, inverted}) => (
   <div className={styles.ButtonContainer}>
     <button
-      type="button"
-      className={styles.Button}
+      type={type ?? 'button'}
+      className={`${styles.Button} ${inverted ? styles.ButtonInverted : ''}`}
       onClick={clickHandler}
     >
       {value}
