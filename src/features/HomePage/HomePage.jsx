@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
+
 import MovieDetails from './MovieDetails/MovieDetails';
-import MovieCard from "./MovieCard/MovieCard";
-import CustomButton from "../../components/CustomButton/CustomButton";
-import CustomInput from "../../components/CustomInput/CustomInput";
+import MovieCard from './MovieCard/MovieCard';
+import CustomButton from '../../components/CustomButton/CustomButton';
+import CustomInput from '../../components/CustomInput/CustomInput';
 
 import { moviesData } from '../../movies.data';
+
 import styles from './Homepage.module.scss';
-
-
 
 class HomePage extends Component {
   state = {
-    movies: moviesData.slice(0),
+    movies: [...moviesData],
     activeMovieID: null,
     searchFieldValue: '',
     sortByLikesAscending: true,
@@ -21,7 +21,7 @@ class HomePage extends Component {
   sortMoviesByProperty = (comparedParam, stateSortFlag) => {
     const sortingCoefficient = this.state[stateSortFlag] ? 1 : -1;
 
-    const sortedMovies = this.state.movies.sort((currentItem, previousItem) => {
+    const sortedMovies = [...this.state.movies].sort((currentItem, previousItem) => {
       if (currentItem[comparedParam] < previousItem[comparedParam]) {
         return sortingCoefficient;
       } else if (currentItem[comparedParam] > previousItem[comparedParam]) {
@@ -65,46 +65,45 @@ class HomePage extends Component {
     event.preventDefault();
 
     this.setState({
-      movies: moviesData.slice(0),
+      movies: [...moviesData],
       sortByLikesAscending: true,
       sortByRatingAscending: true,
     });
   };
 
   changeLikesHandler = (movieId, value) => {
-    const moviesCopy = this.state.movies.slice(0);
-    const activeMovie = moviesCopy.find(movie => movie.id === movieId);
-
-    activeMovie.likes += value;
+    const updatedMovies = [...this.state.movies].map((movie) =>
+      movie.id === movieId ? { ...movie, likes: movie.likes + value } : movie
+    );
 
     this.setState({
-      movies: moviesCopy
+      movies: updatedMovies
     });
   };
 
   changeStarsHandler = (movieId, value) => {
-    const moviesCopy = this.state.movies.slice(0);
-    const activeMovie = moviesCopy.find(movie => movie.id === movieId);
-
-    activeMovie.stars = value;
+    const updatedMovies = [...this.state.movies].map((movie) =>
+      movie.id === movieId ? { ...movie, stars: value } : movie
+    );
 
     this.setState({
-      movies: moviesCopy
+      movies: updatedMovies
     });
   };
 
   render() {
     const { movies, searchFieldValue, activeMovieID } = this.state;
 
-    const activeMovie = movies.find(movie => movie.id === activeMovieID);
+    const activeMovie = movies.find((movie) => movie.id === activeMovieID);
 
-    const filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(searchFieldValue.toLowerCase()));
+    const filteredMovies = movies.filter((movie) =>
+      movie.title.toLowerCase().includes(searchFieldValue.toLowerCase()));
 
     return (
       <div className='container-fluid'>
         <div className='row'>
           <div className='col-md-7'>
-            <form className={styles.SortMoviesForm}>
+            <form className={styles.sortMoviesForm}>
               <div>
                 <h2>Sort movies</h2>
                 <CustomButton value="By likes" clickHandler={this.sortByLikesHandler} />
@@ -117,8 +116,9 @@ class HomePage extends Component {
                 placeholder="Enter movie title"
               />
             </form>
-            <div className={styles.CardContainer}>
-              { filteredMovies.map(movie =>
+            <div className={styles.cardContainer}>
+              {
+                filteredMovies.map((movie) =>
                   <MovieCard
                     key={movie.id}
                     movieClickHandler={this.movieClickHandler}
@@ -131,7 +131,12 @@ class HomePage extends Component {
             </div>
           </div>
           <div className='col-md-5'>
-            { this.state.activeMovieID ? <MovieDetails {...activeMovie} /> : <h2 className={styles.SelectPostLabel}>Select movie</h2> }
+            {
+              this.state.activeMovieID ?
+                <MovieDetails {...activeMovie} />
+                :
+                <h2 className={styles.selectPostLabel}>Select movie</h2>
+            }
           </div>
         </div>
       </div>

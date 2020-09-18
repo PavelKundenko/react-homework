@@ -1,13 +1,9 @@
-.MovieDetails {
+.movieDetails {
   position: sticky;
   top: 20px;
 
-  .MoviePoster {
-    max-height: 600px;
-  }
-
-  .MovieInfoContainer {
-    .MovieInfo {
+  .movieInfoContainer {
+    .movieInfo {
       line-height: 1.5;
       list-style: none;
       padding-left: 10px;
@@ -15,13 +11,14 @@
         margin-top: 10px;
       }
     }
+
+    .moviePoster {
+      max-height: 600px;
+      width: 50%;
+    }
   }
 
-  .MovieDescription {
+  .movieDescription {
     margin-top: 20px;
-  }
-
-  img {
-    width: 50%;
   }
 }

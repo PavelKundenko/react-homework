@@ -1,12 +1,10 @@
-import React from "react";
+import React from 'react';
+
 import styles from './CustomButton.module.scss';
 
-const CustomButton = ({value, clickHandler}) => (
-  <div className={styles.ButtonContainer}>
-    <button
-      className={styles.Button}
-      onClick={clickHandler}
-    >
+const CustomButton = ({ value, clickHandler }) => (
+  <div className={styles.buttonContainer}>
+    <button className={styles.button} onClick={clickHandler}>
       {value}
     </button>
   </div>

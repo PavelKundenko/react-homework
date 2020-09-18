@@ -5,14 +5,19 @@ import { faStar as EmptyStar } from "@fortawesome/free-regular-svg-icons";
 
 import styles from './Rating.module.scss';
 
-const Rating = ({ movieId, rate, changeStarsHandler = null }) => {
-  const starTypes = new Array(rate).fill('solid').concat(new Array(5 - rate).fill('empty'));
+const Rating = ({ movieId, rate, changeStarsHandler }) => {
+  const starTypes = {
+    SOLID: 'solid',
+    EMPTY: 'empty'
+  };
 
-  const stars = starTypes.map((type, index) => {
-    if (type === 'solid') {
+  const rateStarTypes = new Array(rate).fill(starTypes.SOLID).concat(new Array(5 - rate).fill(starTypes.EMPTY));
+
+  const stars = rateStarTypes.map((type, index) => {
+    if (type === starTypes.SOLID) {
       return (
         <FontAwesomeIcon
-          className={styles.Star}
+          className={styles.star}
           key={index}
           icon={SolidStar}
           onClick={() => changeStarsHandler(movieId, index + 1)}
@@ -21,7 +26,7 @@ const Rating = ({ movieId, rate, changeStarsHandler = null }) => {
     } else {
       return (
         <FontAwesomeIcon
-          className={styles.Star}
+          className={styles.star}
           key={index}
           icon={EmptyStar}
           onClick={() => changeStarsHandler(movieId, index + 1)}
