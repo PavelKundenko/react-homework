@@ -1,13 +1,14 @@
-import React from "react";
+import React from 'react';
+
 import PropTypes from 'prop-types';
 
 import styles from './CustomButton.module.scss';
 
-const CustomButton = ({value, clickHandler}) => (
-  <div className={styles.ButtonContainer}>
+const CustomButton = ({ value, clickHandler }) => (
+  <div className={styles.buttonContainer}>
     <button
       type="button"
-      className={styles.Button}
+      className={styles.button}
       onClick={clickHandler}
     >
       {value}
