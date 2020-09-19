@@ -1,7 +1,7 @@
 import React from 'react';
 
-import MoviesGallery from "./MoviesGallery/MoviesGallery";
-import MoviesSortingForm from "./MoviesSortingForm/MoviesSortingForm";
+import MoviesGallery from './MoviesGallery/MoviesGallery';
+import MoviesSortingForm from './MoviesSortingForm/MoviesSortingForm';
 
 const HomePage = () => (
   <div className='container-fluid'>

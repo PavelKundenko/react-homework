@@ -1,13 +1,14 @@
-import React from "react";
+import React from 'react';
+
 import PropTypes from 'prop-types';
 
 import styles from './CustomButton.module.scss';
 
-const CustomButton = ({value, clickHandler, type, inverted}) => (
-  <div className={styles.ButtonContainer}>
+const CustomButton = ({ value, clickHandler, type, inverted }) => (
+  <div className={styles.buttonContainer}>
     <button
       type={type ?? 'button'}
-      className={`${styles.Button} ${inverted ? styles.ButtonInverted : ''}`}
+      className={`${styles.button} ${inverted ? styles.buttonInverted : ''}`}
       onClick={clickHandler}
     >
       {value}

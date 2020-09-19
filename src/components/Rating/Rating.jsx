@@ -1,20 +1,28 @@
-import React from "react";
+import React from 'react';
+
 import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { faStar as SolidStar} from "@fortawesome/free-solid-svg-icons";
+
 import { faStar as EmptyStar } from "@fortawesome/free-regular-svg-icons";
 
 import styles from './Rating.module.scss';
 
 const Rating = ({ movieId, rate, changeRating }) => {
-  const starTypes = new Array(rate).fill('solid').concat(new Array(5 - rate).fill('empty'));
+  const starTypes = {
+    SOLID: 'solid',
+    EMPTY: 'empty'
+  };
 
-  const stars = starTypes.map((type, index) => {
-    if (type === 'solid') {
+  const rateStarTypes = new Array(rate).fill(starTypes.SOLID).concat(new Array(5 - rate).fill(starTypes.EMPTY));
+
+  const stars = rateStarTypes.map((type, index) => {
+    if (type === starTypes.SOLID) {
       return (
         <FontAwesomeIcon
-          className={styles.Star}
+          className={styles.star}
           key={index}
           icon={SolidStar}
           onClick={() => changeRating(movieId, index + 1)}
@@ -23,7 +31,7 @@ const Rating = ({ movieId, rate, changeRating }) => {
     } else {
       return (
         <FontAwesomeIcon
-          className={styles.Star}
+          className={styles.star}
           key={index}
           icon={EmptyStar}
           onClick={() => changeRating(movieId, index + 1)}

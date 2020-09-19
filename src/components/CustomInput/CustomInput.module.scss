@@ -1,11 +1,11 @@
-.InputContainer {
+.inputContainer {
   width: 100%;
   margin: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  .Input {
+  .input {
     width: 100%;
     padding: 10px 15px;
     font-size: 18px;
@@ -17,12 +17,12 @@
     }
   }
 
-  .Label {
+  .label {
     font-size: 20px;
     margin-right: 20px;
   }
 
-  .Input.WithLabel {
+  .input.withLabel {
     width: 80%;
   }
 }

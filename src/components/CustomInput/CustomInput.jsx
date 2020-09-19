@@ -1,18 +1,19 @@
-import React from "react";
+import React from 'react';
+
 import PropTypes from 'prop-types';
 
 import styles from './CustomInput.module.scss';
 
 const CustomInput = ({ type, placeholder, changeHandler, label, id, value, required }) => (
-  <div className={styles.InputContainer}>
+  <div className={styles.inputContainer}>
     {
       label ?
-        <label className={styles.Label} htmlFor={id}>{label}</label>
+        <label className={styles.iabel} htmlFor={id}>{label}</label>
         :
         null
     }
     <input
-      className={`${styles.Input} ${label ? styles.WithLabel : ''}`}
+      className={`${styles.input} ${label ? styles.withLabel : ''}`}
       type={type}
       placeholder={placeholder}
       onChange={changeHandler}

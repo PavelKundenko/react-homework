@@ -1,23 +1,17 @@
 export const changeLikes = (movies, { movieId, likesAmount }) => {
-  const moviesCopy = movies.slice(0);
-  const activeMovie = moviesCopy.find(movie => movie.id === movieId);
+  const moviesCopy =  [...movies];
 
-  activeMovie.likes += likesAmount;
-
-  return moviesCopy;
+  return moviesCopy.map((movie) => movie.id === movieId ? {...movie, likes: movie.likes + likesAmount} : movie);
 };
 
 export const changeRating = (movies, { movieId, newRating }) => {
-  const moviesCopy = movies.slice(0);
-  const activeMovie = moviesCopy.find(movie => movie.id === movieId);
+  const moviesCopy =  [...movies];
 
-  activeMovie.stars = newRating;
-
-  return moviesCopy;
+  return moviesCopy.map((movie) => movie.id === movieId ? {...movie, stars: newRating } : movie);
 };
 
 export const sortMoviesByProperty = (movies, stateSortFlag, comparedParam) => {
-  const moviesCopy = movies.slice(0);
+  const moviesCopy = [...movies];
   const sortingCoefficient = stateSortFlag ? 1 : -1;
 
   return moviesCopy.sort((currentItem, previousItem) => {

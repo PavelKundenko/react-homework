@@ -1,11 +1,11 @@
-import {moviesData} from "../../movies.data";
-import {actorsData} from "../../actors.data";
-import MoviesTypes from "./movies.types";
+import {moviesData} from '../../movies.data';
+import {actorsData} from '../../actors.data';
+import MoviesTypes from './movies.types';
 import {changeRating, changeLikes, sortMoviesByProperty, editMovie, deleteMovie} from "./movies.utils";
 
 const INITIAL_STATE = {
-  movies: moviesData.slice(0),
-  actors: actorsData.slice(0),
+  actors: [...actorsData],
+  movies: [...moviesData],
   activeMovieId: null,
   searchFieldValue: '',
   sortByLikesAscending: true,
@@ -55,7 +55,8 @@ export const moviesReducer = (state = INITIAL_STATE, action) => {
     case MoviesTypes.RESET_SORTING:
       return {
         ...state,
-        movies: moviesData.slice(0)
+        movies: [...moviesData],
+        searchFieldValue: ''
       };
 
     case MoviesTypes.EDIT_MOVIE:

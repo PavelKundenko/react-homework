@@ -1,16 +1,19 @@
-import React from "react";
+import React from 'react';
+
 import { connect } from 'react-redux';
+
 import PropTypes from 'prop-types';
 
-import CustomButton from "../../../components/CustomButton/CustomButton";
-import CustomInput from "../../../components/CustomInput/CustomInput";
+import CustomButton from '../../../components/CustomButton/CustomButton';
+import CustomInput from '../../../components/CustomInput/CustomInput';
 
 import styles from './MoviesSortingForm.module.scss';
+
 import {searchValueChanged, sortByLikes, sortByRating, resetSorting} from "../../../redux/movies/movies.actions";
 
 const MoviesSortingForm = ({ searchFieldValueChanged, sortByLikes, sortByRating, resetSorting }) => {
   return (
-    <form className={styles.SortMoviesForm}>
+    <form className={styles.sortMoviesForm}>
       <div>
         <h2>Sort movies</h2>
         <CustomButton value="By likes" clickHandler={sortByLikes} />
