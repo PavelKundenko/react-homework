@@ -6,7 +6,6 @@ const INITIAL_STATE = {
   movies: [...moviesData],
   activeMovieId: null,
   searchFieldValue: '',
-  filteredMovies: [...moviesData],
   sortByLikesAscending: true,
   sortByRatingAscending: true
 };
