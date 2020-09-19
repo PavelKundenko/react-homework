@@ -1,17 +1,8 @@
 .app {
   font-family: 'Roboto', sans-serif;
-  position: relative;
   min-height: 100vh;
   padding-bottom: 50px;
-
-  .header {
-    background-color: #343A40;
-    padding: 15px 0;
-    margin-bottom: 30px;
-    color: #fff;
-    text-align: center;
-    letter-spacing: 2px;
-  }
+  position: relative;
 
   .footer {
     width: 100%;

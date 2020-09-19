@@ -1,17 +1,17 @@
-.Form {
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  .FormTitle {
+  .formTitle {
     text-align: center;
   }
 
-  .FormControl {
+  .formControl {
     width: 100%;
     margin-top: 20px;
   }
 
-  .ErrorContainer {
+  .errorContainer {
     color: #CC0000;
   }
 }

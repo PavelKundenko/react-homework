@@ -1,16 +1,19 @@
-import React, {useState} from "react";
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import {movie} from "../../PropTypesShapes";
+import React, {useState} from 'react';
 
-import CustomInput from "../../components/CustomInput/CustomInput";
-import CustomTextarea from "../../components/CustomTextarea/CustomTextarea";
-import CustomButton from "../../components/CustomButton/CustomButton";
+import { connect } from 'react-redux';
+
+import PropTypes from 'prop-types';
+
+import {propTypesShapes} from '../../constants';
+
+import CustomInput from '../../components/CustomInput/CustomInput';
+import CustomTextarea from '../../components/CustomTextarea/CustomTextarea';
+import CustomButton from '../../components/CustomButton/CustomButton';
 
 import styles from './EditMoviePage.module.scss';
 
-import { editMovie } from '../../redux/movies/movies.actions';
-import {moviesDataSelector} from "../../redux/movies/movies.selectors";
+import {editMovie} from '../../redux/movies/movies.actions';
+import {moviesDataSelector} from '../../redux/movies/movies.selectors';
 
 const EditMoviePage = ({ match, movies, editMovie, history }) => {
   const editableMovieId = Number(match.params.id);
@@ -161,7 +164,8 @@ const mapDispatchToProps = {
 };
 
 EditMoviePage.propTypes = {
-  movies: PropTypes.arrayOf(movie).isRequired
+  movies: PropTypes.arrayOf(propTypesShapes.MOVIE).isRequired,
+  editMovie: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditMoviePage);

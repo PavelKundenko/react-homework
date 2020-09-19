@@ -26,24 +26,13 @@ export const sortMoviesByProperty = (movies, stateSortFlag, comparedParam) => {
 };
 
 export const editMovie = (movies, editableMovieId, newMovieData) => {
-  const moviesCopy = movies.slice(0);
-  const editableMovie = moviesCopy.find(movie => movie.id === editableMovieId);
-  const editableMovieIndex = moviesCopy.indexOf(editableMovie);
+  const moviesCopy = [...movies];
 
-  moviesCopy[editableMovieIndex] = {
-    ...editableMovie,
-    ...newMovieData
-  };
-
-  return moviesCopy;
+  return moviesCopy.map((movie) => movie.id === editableMovieId ? {...movie, ...newMovieData} : movie);
 };
 
 export const deleteMovie = (movies, movieId) => {
-  const moviesCopy = movies.slice(0);
-  const movieData = movies.find(movie => movie.id === movieId);
-  const movieIndex = moviesCopy.indexOf(movieData);
+  const moviesCopy = [...movies];
 
-  moviesCopy.splice(movieIndex, 1);
-
-  return moviesCopy;
+  return moviesCopy.filter((movie) => movie.id !== movieId);
 };

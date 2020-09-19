@@ -1,24 +1,28 @@
 import React from 'react';
+
 import { connect } from 'react-redux';
 
-import {Link} from "react-router-dom";
-import Rating from "../../components/Rating/Rating";
-import CustomButton from "../../components/CustomButton/CustomButton";
+import PropTypes from 'prop-types';
+
+import {Link} from 'react-router-dom';
+import Rating from '../../components/Rating/Rating';
+import CustomButton from '../../components/CustomButton/CustomButton';
 
 import styles from './MoviePage.module.scss';
 
-import {deleteMovie} from "../../redux/movies/movies.actions";
-import {actorsDataSelector, moviesDataSelector} from "../../redux/movies/movies.selectors";
+import {deleteMovie} from '../../redux/movies/movies.actions';
+import {actorsDataSelector, moviesDataSelector} from '../../redux/movies/movies.selectors';
+import {propTypesShapes} from '../../constants';
 
 const MoviePage = ({ moviesData, actorsData, match, history, deleteMovie }) => {
   const activeMovieId = Number(match.params.id);
 
-  const activeMovieData = moviesData.find(movie => movie.id === activeMovieId);
+  const activeMovieData = moviesData.find((movie) => movie.id === activeMovieId);
 
   const { id, title, posterUrl, description, likes, stars, director, actors, genres } = activeMovieData;
 
   const actorsLinks = actors.map((actorId, index) => {
-    const actorData = actorsData.find(actor => actor.id === actorId);
+    const actorData = actorsData.find((actor) => actor.id === actorId);
     if (index === actors.length - 1) {
       return (
         <React.Fragment key={index}>
@@ -41,16 +45,16 @@ const MoviePage = ({ moviesData, actorsData, match, history, deleteMovie }) => {
 
   return (
     <div className='container'>
-      <div className={styles.MovieInfoTopbar}>
+      <div className={styles.movieInfoTopbar}>
         <h1>{title}</h1>
         <div>
           <CustomButton value='Edit' clickHandler={editMovieHandler} />
           <CustomButton value='Delete' clickHandler={deleteMovieHandler} />
         </div>
       </div>
-      <div className={`${styles.MovieInfoContainer} row`}>
-        <img className={`${styles.MoviePoster} col-md-5`} src={posterUrl} alt='Movie poster' />
-        <ul className={`${styles.MovieInfo} col-md-7`}>
+      <div className={`${styles.movieInfoContainer} row`}>
+        <img className={`${styles.moviePoster} col-md-5`} src={posterUrl} alt='Movie poster' />
+        <ul className={`${styles.movieInfo} col-md-7`}>
           <li>Likes: {likes}</li>
           <li><Rating rate={stars} changeStarsHandler={() => false} /></li>
           <li>Director: <i>{director}</i></li>
@@ -74,5 +78,10 @@ const mapDispatchToProps = {
   deleteMovie: (movieId) => deleteMovie(movieId)
 };
 
+MoviePage.propTypes = {
+  moviesData: PropTypes.arrayOf(propTypesShapes.MOVIE).isRequired,
+  actorsData: PropTypes.arrayOf(propTypesShapes.ACTOR).isRequired,
+  deleteMovie: PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

@@ -1,8 +1,14 @@
-import React from "react";
+import React from 'react';
+
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 
 import styles from './ActorPage.module.scss';
-import {actorsDataSelector} from "../../redux/movies/movies.selectors";
+
+import {actorsDataSelector} from '../../redux/movies/movies.selectors';
+
+import {propTypesShapes} from '../../constants';
 
 const ActorPage = ({ match, actors }) => {
   const actorId = Number(match.params.id);
@@ -11,10 +17,10 @@ const ActorPage = ({ match, actors }) => {
   return (
     <div className='container'>
       <div className='row justify-content-center'>
-        <div className='col-md-6'>
+        <div className={`${styles.actorInfoContainer} col-md-6`}>
           <h2>{name}</h2>
           <img className={styles.actorPortrait} src={imgUrl} alt="Author portrait" />
-          <p>{biography}</p>
+          <p className={styles.actorBiography}>{biography}</p>
         </div>
       </div>
     </div>
@@ -24,5 +30,9 @@ const ActorPage = ({ match, actors }) => {
 const mapStateToProps = (state) => ({
   actors: actorsDataSelector(state)
 });
+
+ActorPage.propTypes = {
+  actors: PropTypes.arrayOf(propTypesShapes.ACTOR)
+};
 
 export default connect(mapStateToProps)(ActorPage);

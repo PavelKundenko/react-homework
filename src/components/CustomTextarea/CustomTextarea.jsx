@@ -1,17 +1,19 @@
-import React from "react";
+import React from 'react';
+
+import PropTypes from 'prop-types';
+
 import styles from './CustomTextarea.module.scss';
-import PropTypes from "prop-types";
 
 const CustomTextarea = ({ placeholder, changeHandler, label, id, value, required }) => (
-  <div className={styles.TextareaContainer}>
+  <div className={styles.textareaContainer}>
     {
       label ?
-        <label className={styles.Label} htmlFor={id}>{label}</label>
+        <label className={styles.label} htmlFor={id}>{label}</label>
         :
         null
     }
     <textarea
-      className={styles.Textarea}
+      className={styles.textarea}
       placeholder={placeholder}
       onChange={changeHandler}
       id={id}

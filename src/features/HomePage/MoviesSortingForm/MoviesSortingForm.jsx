@@ -9,7 +9,7 @@ import CustomInput from '../../../components/CustomInput/CustomInput';
 
 import styles from './MoviesSortingForm.module.scss';
 
-import {searchValueChanged, sortByLikes, sortByRating, resetSorting} from "../../../redux/movies/movies.actions";
+import {searchValueChanged, sortByLikes, sortByRating, resetSorting} from '../../../redux/movies/movies.actions';
 
 const MoviesSortingForm = ({ searchFieldValueChanged, sortByLikes, sortByRating, resetSorting }) => {
   return (

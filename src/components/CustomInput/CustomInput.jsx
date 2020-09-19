@@ -8,7 +8,7 @@ const CustomInput = ({ type, placeholder, changeHandler, label, id, value, requi
   <div className={styles.inputContainer}>
     {
       label ?
-        <label className={styles.iabel} htmlFor={id}>{label}</label>
+        <label className={styles.label} htmlFor={id}>{label}</label>
         :
         null
     }

@@ -11,23 +11,30 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
 import Rating from '../../../../components/Rating/Rating';
-import {addLike, changeMovieRating, removeLike, setActiveMovie} from '../../../../redux/homepage/homepage.actions';
+
+import {addLike, changeMovieRating, removeLike} from '../../../../redux/movies/movies.actions';
 
 import styles from './MovieCard.module.scss';
-
-import {addLike, changeMovieRating, removeLike} from "../../../../redux/movies/movies.actions";
 
 const MovieCard = ({ id, title, posterUrl, likes, stars, addLike, removeLike, changeRating }) => (
   <div className={`${styles.card} col-lg-3 col-sm-5`}>
     <div>
-      <img className={styles.MoviePoster} src={posterUrl} alt="Movie poster"/>
+      <img className={styles.moviePoster} src={posterUrl} alt="Movie poster"/>
       <h3 className={styles.cardTitle}><Link to={`/movie/${id}`}>{title}</Link></h3>
     </div>
     <div className={styles.assessmentContainer}>
       <div>
         {likes}
-        <FontAwesomeIcon onClick={() => addLike(id)} className={`${styles.icon} ${styles.like}`} icon={faThumbsUp} />
-        <FontAwesomeIcon onClick={() => removeLike(id)} className={`${styles.icon} ${styles.dislike}`} icon={faThumbsDown} />
+        <FontAwesomeIcon
+          onClick={() => addLike(id)}
+          className={`${styles.icon} ${styles.like}`}
+          icon={faThumbsUp}
+        />
+        <FontAwesomeIcon
+          onClick={() => removeLike(id)}
+          className={`${styles.icon} ${styles.dislike}`}
+          icon={faThumbsDown}
+        />
       </div>
       <Rating movieId={id} rate={stars} changeRating={changeRating} />
     </div>

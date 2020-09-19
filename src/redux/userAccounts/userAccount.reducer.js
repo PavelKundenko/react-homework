@@ -1,11 +1,12 @@
 import userAccountTypes from "./userAccount.types";
+import {localStorageObjects} from '../../constants';
 
-const currentUser = JSON.parse(localStorage.getItem('currentUser')) ?? {};
+const currentUser = JSON.parse(localStorage.getItem(localStorageObjects.CURRENT_USER)) ?? {};
 
 const INITIAL_STATE = {
   login: currentUser.login ?? '',
   password: currentUser.password ?? '',
-  isLogged: !!JSON.parse(localStorage.getItem('currentUser'))
+  isLogged: !!JSON.parse(localStorage.getItem(localStorageObjects.CURRENT_USER))
 };
 
 export const userAccountReducer = (state = INITIAL_STATE, action) => {

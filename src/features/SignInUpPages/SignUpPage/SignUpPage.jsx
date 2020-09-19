@@ -1,21 +1,25 @@
-import React, {useState} from "react";
+import React, {useState} from'react'
+
 import { connect } from 'react-redux';
 
-import {Link} from "react-router-dom";
+import PropTypes from 'prop-types';
 
-import CustomInput from "../../components/CustomInput/CustomInput";
-import CustomButton from "../../components/CustomButton/CustomButton";
+import {Link} from 'react-router-dom'
 
-import {loginChanged, passwordChanged, logIn} from "../../redux/userAccounts/userAccount.actions";
-import {userDataSelector} from "../../redux/userAccounts/userAccount.selectors";
+import CustomInput from '../../../components/CustomInput/CustomInput'
+import CustomButton from '../../../components/CustomButton/CustomButton'
 
-import styles from './SignUpPage.module.scss';
+import {loginChanged, passwordChanged, logIn} from '../../../redux/userAccounts/userAccount.actions'
+import {userDataSelector} from '../../../redux/userAccounts/userAccount.selectors'
+
+import {localStorageObjects, propTypesShapes} from '../../../constants';
+
+import styles from '../SignInUpPage.module.scss';
 
 const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData }) => {
   const [errors, updateErrors] = useState([]);
 
   const validateForm = (formData) => {
-    console.log(formData);
     const validationResult = {
       isValid: true,
       errors: []
@@ -42,23 +46,22 @@ const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData })
     updateErrors(() => []);
 
     const validationResult = validateForm(userData);
-    console.log(validationResult);
 
     if (!validationResult.isValid) {
       updateErrors(() => [...validationResult.errors]);
     } else {
-      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const users = JSON.parse(localStorage.getItem(localStorageObjects.USERS)) || [];
 
-      if (users.find(user => user.login === userData.login)) {
+      if (users.find((user) => user.login === userData.login)) {
         updateErrors(prevState => [...prevState, 'This login is already registered. '])
       } else {
         logIn();
 
         users.push(userData);
 
-        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem(localStorageObjects.USERS, JSON.stringify(users));
 
-        localStorage.setItem('currentUser', JSON.stringify(userData));
+        localStorage.setItem(localStorageObjects.CURRENT_USER, JSON.stringify(userData));
 
         history.push('/home');
       }
@@ -68,22 +71,24 @@ const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData })
   return (
     <div className='container'>
       <div className='row justify-content-center'>
-        <form className={`${styles.Form} col-md-6`}>
-          <h2 className={styles.FormTitle}>Please register</h2>
-          <div className={styles.FormControl}>
+        <form className={`${styles.form} col-md-6`}>
+          <h2 className={styles.formTitle}>Please register</h2>
+          <div className={styles.formControl}>
             <CustomInput
               type='text'
               placeholder='Enter login'
               required={true}
               changeHandler={loginChanged}
+              value={userData.login}
             />
           </div>
-          <div className={styles.FormControl}>
+          <div className={styles.formControl}>
             <CustomInput
               type='password'
               placeholder='Enter password'
               required={true}
               changeHandler={passwordChanged}
+              value={userData.password}
             />
           </div>
           <CustomButton
@@ -92,7 +97,7 @@ const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData })
             clickHandler={submitHandler}
           />
           <p>Do you have registered account? <Link to='/sign-in'>Sign In</Link></p>
-          <p className={styles.ErrorContainer}>
+          <p className={styles.errorContainer}>
             { errors }
           </p>
         </form>
@@ -109,6 +114,13 @@ const mapDispatchToProps = {
   loginChanged: (event) => loginChanged(event.target.value),
   passwordChanged: (event) => passwordChanged(event.target.value),
   logIn
+};
+
+SignUpPage.propTypes = {
+  userData: PropTypes.shape(propTypesShapes.USER_DATA).isRequired,
+  loginChanged: PropTypes.func.isRequired,
+  passwordChanged: PropTypes.func.isRequired,
+  logIn: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

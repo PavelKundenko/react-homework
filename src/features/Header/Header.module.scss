@@ -1,4 +1,4 @@
-.Header {
+.header {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -7,17 +7,21 @@
   margin-bottom: 30px;
   color: #fff;
 
-  .HeaderTitle {
+  .headerTitle {
+    flex: 1;
     letter-spacing: 2px;
     text-align: center;
   }
 
-  .UserContainer {
+  .userContainer {
+    flex: 1;
     display: flex;
+    justify-content: flex-end;
     align-items: center;
   }
 
-  .HomeLink {
+  .homeLink {
+    flex: 1;
     color: #fff;
     text-decoration: none;
   }

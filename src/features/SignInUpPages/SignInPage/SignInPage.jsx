@@ -1,15 +1,23 @@
-import React, {useState} from "react";
+import React, {useState} from 'react';
 
 import { connect } from 'react-redux';
 
-import styles from './SignInPage.module.scss';
-import CustomInput from "../../components/CustomInput/CustomInput";
-import CustomButton from "../../components/CustomButton/CustomButton";
-import {Link} from "react-router-dom";
-import {userDataSelector} from "../../redux/userAccounts/userAccount.selectors";
-import {logIn, loginChanged, passwordChanged} from "../../redux/userAccounts/userAccount.actions";
+import PropTypes from 'prop-types';
 
-const SignInPage = ({ history, loginChanged, passwordChanged, loggedIn, userData }) => {
+import {Link} from 'react-router-dom';
+
+import CustomInput from '../../../components/CustomInput/CustomInput';
+import CustomButton from '../../../components/CustomButton/CustomButton';
+
+import {userDataSelector} from '../../../redux/userAccounts/userAccount.selectors';
+import {logIn, loginChanged, passwordChanged} from '../../../redux/userAccounts/userAccount.actions';
+
+import {localStorageObjects, propTypesShapes} from '../../../constants';
+
+import styles from '../SignInUpPage.module.scss';
+
+
+const SignInPage = ({ history, loginChanged, passwordChanged, logIn, userData }) => {
   const [errors, updateErrors] = useState([]);
 
   const submitHandler = (event) => {
@@ -17,18 +25,18 @@ const SignInPage = ({ history, loginChanged, passwordChanged, loggedIn, userData
 
     updateErrors(() => []);
 
-    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const users = JSON.parse(localStorage.getItem(localStorageObjects.USERS)) || [];
 
-    const currentUser = users.find(user => user.login === userData.login);
+    const currentUser = users.find((user) => user.login === userData.login);
 
     if (!currentUser) {
      updateErrors(() => ['There is no registered user with this login. Register please. ']);
     } else if (currentUser.password !== userData.password) {
       updateErrors(() => ['Incorrect password. '])
     } else {
-      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      localStorage.setItem(localStorageObjects.CURRENT_USER, JSON.stringify(currentUser));
 
-      loggedIn();
+      logIn();
 
       history.push('/home');
     }
@@ -37,22 +45,24 @@ const SignInPage = ({ history, loginChanged, passwordChanged, loggedIn, userData
   return (
     <div className='container'>
       <div className='row justify-content-center'>
-        <form className={`${styles.Form} col-md-6`}>
-          <h2 className={styles.FormTitle}>Please log in</h2>
-          <div className={styles.FormControl}>
+        <form className={`${styles.form} col-md-6`}>
+          <h2 className={styles.formTitle}>Please log in</h2>
+          <div className={styles.formControl}>
             <CustomInput
               type='text'
               placeholder='Enter login'
               required={true}
               changeHandler={loginChanged}
+              value={userData.login}
             />
           </div>
-          <div className={styles.FormControl}>
+          <div className={styles.formControl}>
             <CustomInput
               type='password'
               placeholder='Enter password'
               required={true}
               changeHandler={passwordChanged}
+              value={userData.password}
             />
           </div>
           <CustomButton
@@ -61,7 +71,7 @@ const SignInPage = ({ history, loginChanged, passwordChanged, loggedIn, userData
             clickHandler={submitHandler}
           />
           <p>Don't have an account? <Link to='/sign-up'>Sign Up</Link></p>
-          <p className={styles.ErrorContainer}>
+          <p className={styles.errorContainer}>
             { errors }
           </p>
         </form>
@@ -77,7 +87,14 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   loginChanged: (event) => loginChanged(event.target.value),
   passwordChanged: (event) => passwordChanged(event.target.value),
-  loggedIn: logIn
+  logIn
+};
+
+SignInPage.propTypes = {
+  userData: PropTypes.shape(propTypesShapes.USER_DATA).isRequired,
+  loginChanged: PropTypes.func.isRequired,
+  passwordChanged: PropTypes.func.isRequired,
+  logIn: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInPage);

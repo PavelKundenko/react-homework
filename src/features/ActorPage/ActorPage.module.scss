@@ -1,4 +1,15 @@
-.actorPortrait {
-  max-width: 50%;
+.actorInfoContainer {
+  border: 1px solid #343A40;
+  padding: 20px;
+  border-radius: 10px;
+
+  .actorPortrait {
+    max-width: 50%;
+    margin: 20px 0;
+  }
+
+  .actorBiography {
+    line-height: 1.5;
+  }
 }
 

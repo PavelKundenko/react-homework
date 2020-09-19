@@ -6,6 +6,7 @@ import {changeRating, changeLikes, sortMoviesByProperty, editMovie, deleteMovie}
 const INITIAL_STATE = {
   actors: [...actorsData],
   movies: [...moviesData],
+  unsortedMovies: [...moviesData],
   activeMovieId: null,
   searchFieldValue: '',
   sortByLikesAscending: true,
@@ -55,20 +56,22 @@ export const moviesReducer = (state = INITIAL_STATE, action) => {
     case MoviesTypes.RESET_SORTING:
       return {
         ...state,
-        movies: [...moviesData],
+        movies: [...state.unsortedMovies],
         searchFieldValue: ''
       };
 
     case MoviesTypes.EDIT_MOVIE:
       return {
         ...state,
-        movies: editMovie(state.movies, action.payload.editableMovieId, action.payload.editableMovieData)
+        movies: editMovie(state.movies, action.payload.editableMovieId, action.payload.editableMovieData),
+        unsortedMovies: editMovie(state.unsortedMovies, action.payload.editableMovieId, action.payload.editableMovieData)
       };
 
     case MoviesTypes.DELETE_MOVIE:
       return {
         ...state,
-        movies: deleteMovie(state.movies, action.payload.movieId)
+        movies: deleteMovie(state.movies, action.payload.movieId),
+        unsortedMovies: deleteMovie(state.unsortedMovies, action.payload.movieId)
       };
 
     default:

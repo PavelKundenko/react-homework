@@ -1,15 +1,18 @@
-import React from "react";
+import React from 'react';
+
 import { connect } from 'react-redux';
 
-import {NavLink} from "react-router-dom";
+import PropTypes from 'prop-types';
 
-import { logOut } from "../../redux/userAccounts/userAccount.actions";
-import {isLoggedSelector, userDataSelector} from "../../redux/userAccounts/userAccount.selectors";
+import {NavLink} from 'react-router-dom';
+
+import CustomButton from '../../components/CustomButton/CustomButton';
+
+import { logOut } from '../../redux/userAccounts/userAccount.actions';
+import {isLoggedSelector, userDataSelector} from '../../redux/userAccounts/userAccount.selectors';
 
 import styles from './Header.module.scss';
-import CustomButton from "../../components/CustomButton/CustomButton";
-
-
+import {propTypesShapes} from '../../constants';
 
 const Header = ({ userData, isLogged, logOut }) => {
 
@@ -19,18 +22,18 @@ const Header = ({ userData, isLogged, logOut }) => {
   };
 
   return (
-    <header className={styles.Header}>
+    <header className={styles.header}>
       {
         isLogged ?
-          (<NavLink className={styles.HomeLink} to='/home'>Home</NavLink>)
+          (<NavLink className={styles.homeLink} to='/home'>Home</NavLink>)
           :
           null
       }
-      <h1 className={styles.HeaderTitle}>Movies</h1>
+      <h1 className={styles.headerTitle}>Movies</h1>
       {
         isLogged ?
         (
-          <div className={styles.UserContainer}>
+          <div className={styles.userContainer}>
             <p>User: {userData.login} </p>
             <CustomButton value='Log out' clickHandler={logOutHandler} inverted={true}/>
           </div>
@@ -50,6 +53,12 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   logOut
+};
+
+Header.propTypes = {
+  userData: PropTypes.shape(propTypesShapes.USER_DATA).isRequired,
+  isLogged: PropTypes.bool.isRequired,
+  logOut: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

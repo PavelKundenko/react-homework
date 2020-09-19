@@ -2,11 +2,11 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faStar as SolidStar} from "@fortawesome/free-solid-svg-icons";
+import { faStar as SolidStar} from '@fortawesome/free-solid-svg-icons';
 
-import { faStar as EmptyStar } from "@fortawesome/free-regular-svg-icons";
+import { faStar as EmptyStar } from '@fortawesome/free-regular-svg-icons';
 
 import styles from './Rating.module.scss';
 

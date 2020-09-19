@@ -1,25 +1,28 @@
-.MovieInfoTopbar {
+.movieInfoTopbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.MovieInfoContainer {
-  .MovieInfo {
+.movieInfoContainer {
+  .movieInfo {
     line-height: 1.5;
     list-style: none;
     padding-left: 10px;
     li {
       margin-top: 10px;
+      a {
+        color: inherit;
+      }
     }
-    .MoviePoster {
+    .moviePoster {
       max-height: 600px;
       width: 50%;
     }
   }
 }
 
-.MovieDescription {
+.movieDescription {
   margin-top: 20px;
 }
 
