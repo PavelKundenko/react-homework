@@ -3,9 +3,10 @@ import HomepageTypes from "./homepage.types";
 import { changeRating, changeLikes, sortMoviesByProperty } from "./homepage.utils";
 
 const INITIAL_STATE = {
-  movies: moviesData.slice(0),
+  movies: [...moviesData],
   activeMovieId: null,
   searchFieldValue: '',
+  filteredMovies: [...moviesData],
   sortByLikesAscending: true,
   sortByRatingAscending: true
 };
@@ -15,7 +16,7 @@ export const homepageReducer = (state = INITIAL_STATE, action) => {
     case HomepageTypes.SET_ACTIVE_MOVIE:
       return {
         ...state,
-        activeMovieID: action.payload.movieId
+        activeMovieId: action.payload.movieId
       };
 
     case HomepageTypes.ADD_LIKE:
@@ -59,7 +60,8 @@ export const homepageReducer = (state = INITIAL_STATE, action) => {
     case HomepageTypes.RESET_SORTING:
       return {
         ...state,
-        movies: moviesData.slice(0)
+        movies: [...moviesData],
+        searchFieldValue: ''
       };
 
     default:
