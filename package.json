@@ -27,7 +27,14 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "arrow-parens": ["error", "always"],
+      "quotes": ["error", "single"],
+      "no-trailing-spaces": "error",
+      "object-curly-spacing": ["error", "always"],
+      "max-len": ["error", 120]
+    }
   },
   "browserslist": {
     "production": [

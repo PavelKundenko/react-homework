@@ -1,4 +1,4 @@
-import MoviesTypes from "./movies.types";
+import MoviesTypes from './movies.types';
 
 export const addLike = (movieId) => ({
   type: MoviesTypes.ADD_LIKE,

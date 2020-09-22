@@ -1,15 +1,12 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
-
 import PropTypes from 'prop-types';
 
 import CustomButton from '../../../components/CustomButton/CustomButton';
 import CustomInput from '../../../components/CustomInput/CustomInput';
-
+import {searchValueChanged, sortByLikes, sortByRating, resetSorting} from '../../../redux/movies/movies.actions';
 import styles from './MoviesSortingForm.module.scss';
 
-import {searchValueChanged, sortByLikes, sortByRating, resetSorting} from '../../../redux/movies/movies.actions';
 
 const MoviesSortingForm = ({ searchFieldValueChanged, sortByLikes, sortByRating, resetSorting }) => {
   return (
@@ -24,8 +21,7 @@ const MoviesSortingForm = ({ searchFieldValueChanged, sortByLikes, sortByRating,
         <CustomInput
           type="text"
           changeHandler={searchFieldValueChanged}
-          placeholder="Enter movie title"
-        />
+          placeholder="Enter movie title" />
       </div>
     </form>
   )

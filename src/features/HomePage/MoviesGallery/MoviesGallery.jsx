@@ -1,24 +1,23 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
-
 import PropTypes from 'prop-types';
 
 import {propTypesShapes} from '../../../constants';
-
 import MovieCard from './MovieCard/MovieCard';
-
 import styles from './MoviesGallery.module.scss';
-
 import {filteredMoviesSelector} from '../../../redux/movies/movies.selectors';
+
 
 const MoviesGallery = ({ filteredMovies }) => (
   <div className={styles.cardContainer}>
     {
-      filteredMovies.length ?
-        filteredMovies.map(movie => <MovieCard key={movie.id} {...movie} /> )
-        :
-        <h3>There are no such movies there</h3>
+      filteredMovies.length ? (
+        filteredMovies.map((movie) => (
+            <MovieCard key={movie.id} {...movie} />
+          ))
+        ) : (
+          <h3>There are no such movies there</h3>
+        )
     }
   </div>
 );

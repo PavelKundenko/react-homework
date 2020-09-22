@@ -1,7 +1,7 @@
-import {moviesData} from '../../movies.data';
-import {actorsData} from '../../actors.data';
+import { moviesData } from '../../movies.data';
+import { actorsData } from '../../actors.data';
 import MoviesTypes from './movies.types';
-import {changeRating, changeLikes, sortMoviesByProperty, editMovie, deleteMovie} from "./movies.utils";
+import { changeRating, changeLikes, sortMoviesByProperty, editMovie, deleteMovie } from "./movies.utils";
 
 const INITIAL_STATE = {
   actors: [...actorsData],
@@ -75,8 +75,6 @@ export const moviesReducer = (state = INITIAL_STATE, action) => {
       };
 
     default:
-      return {
-      ...state
-    }
+      return state
   }
 };

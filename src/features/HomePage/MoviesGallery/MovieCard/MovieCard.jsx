@@ -1,20 +1,14 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
-
 import PropTypes from 'prop-types';
-
 import { Link } from 'react-router-dom';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
 import Rating from '../../../../components/Rating/Rating';
-
-import {addLike, changeMovieRating, removeLike} from '../../../../redux/movies/movies.actions';
-
+import { addLike, changeMovieRating, removeLike } from '../../../../redux/movies/movies.actions';
 import styles from './MovieCard.module.scss';
+
 
 const MovieCard = ({ id, title, posterUrl, likes, stars, addLike, removeLike, changeRating }) => (
   <div className={`${styles.card} col-lg-3 col-sm-5`}>
@@ -28,29 +22,27 @@ const MovieCard = ({ id, title, posterUrl, likes, stars, addLike, removeLike, ch
         <FontAwesomeIcon
           onClick={() => addLike(id)}
           className={`${styles.icon} ${styles.like}`}
-          icon={faThumbsUp}
-        />
+          icon={faThumbsUp} />
         <FontAwesomeIcon
           onClick={() => removeLike(id)}
           className={`${styles.icon} ${styles.dislike}`}
-          icon={faThumbsDown}
-        />
+          icon={faThumbsDown} />
       </div>
-      <Rating movieId={id} rate={stars} changeRating={changeRating} />
+      <Rating movieId={id} rate={stars} changeRating={changeMovieRating} />
     </div>
   </div>
 );
 
 const mapDispatchToProps = {
-  addLike: (id) => addLike(id),
-  removeLike: (id) => removeLike(id),
-  changeRating: (id, newRating) => changeMovieRating(id, newRating)
+  addLike,
+  removeLike,
+  changeMovieRating
 };
 
 MovieCard.propTypes = {
   addLike: PropTypes.func.isRequired,
   removeLike: PropTypes.func.isRequired,
-  changeRating: PropTypes.func.isRequired
+  changeMovieRating: PropTypes.func.isRequired
 };
 
 export default connect(null, mapDispatchToProps)(MovieCard);

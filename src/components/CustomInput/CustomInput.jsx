@@ -1,8 +1,8 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 
 import styles from './CustomInput.module.scss';
+
 
 const CustomInput = ({ type, placeholder, changeHandler, label, id, value, required }) => (
   <div className={styles.inputContainer}>
@@ -20,8 +20,7 @@ const CustomInput = ({ type, placeholder, changeHandler, label, id, value, requi
       name={label}
       id={id}
       defaultValue={value}
-      required={required}
-    />
+      required={required} />
   </div>
 );
 
