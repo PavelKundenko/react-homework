@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+
 import { moviesReducer } from './movies/movies.reducer';
 import { userAccountReducer } from './userAccounts/userAccount.reducer';
 

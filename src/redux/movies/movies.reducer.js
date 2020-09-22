@@ -1,7 +1,7 @@
 import { moviesData } from '../../movies.data';
 import { actorsData } from '../../actors.data';
 import MoviesTypes from './movies.types';
-import { changeRating, changeLikes, sortMoviesByProperty, editMovie, deleteMovie } from "./movies.utils";
+import { changeRating, changeLikes, sortMoviesByProperty, editMovie, deleteMovie } from './movies.utils';
 
 const INITIAL_STATE = {
   actors: [...actorsData],
@@ -64,7 +64,11 @@ export const moviesReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         movies: editMovie(state.movies, action.payload.editableMovieId, action.payload.editableMovieData),
-        unsortedMovies: editMovie(state.unsortedMovies, action.payload.editableMovieId, action.payload.editableMovieData)
+        unsortedMovies: editMovie(
+          state.unsortedMovies,
+          action.payload.editableMovieId,
+          action.payload.editableMovieData
+        )
       };
 
     case MoviesTypes.DELETE_MOVIE:

@@ -1,5 +1,5 @@
-import userAccountTypes from "./userAccount.types";
-import {localStorageObjects} from '../../constants';
+import userAccountTypes from './userAccount.types';
+import { localStorageObjects } from '../../constants';
 
 const currentUser = JSON.parse(localStorage.getItem(localStorageObjects.CURRENT_USER)) ?? {};
 
@@ -38,9 +38,7 @@ export const userAccountReducer = (state = INITIAL_STATE, action) => {
       };
 
     default:
-      return {
-        ...state
-      };
+      return state;
   }
 };
 

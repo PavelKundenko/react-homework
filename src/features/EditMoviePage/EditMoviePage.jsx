@@ -1,24 +1,21 @@
-import React, {useState} from 'react';
-
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-
 import PropTypes from 'prop-types';
 
-import {propTypesShapes} from '../../constants';
-
+import { propTypesShapes } from '../../constants';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomTextarea from '../../components/CustomTextarea/CustomTextarea';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import { editMovie } from '../../redux/movies/movies.actions';
+import { moviesDataSelector } from '../../redux/movies/movies.selectors';
 
 import styles from './EditMoviePage.module.scss';
 
-import {editMovie} from '../../redux/movies/movies.actions';
-import {moviesDataSelector} from '../../redux/movies/movies.selectors';
 
 const EditMoviePage = ({ match, movies, editMovie, history }) => {
   const editableMovieId = Number(match.params.id);
 
-  const {id, title, posterUrl, director, genres, description } = movies.find(movie => movie.id === editableMovieId);
+  const { id, title, posterUrl, director, genres, description } = movies.find((movie) => movie.id === editableMovieId);
 
   const INITIAL_DATA = {
     title,
@@ -34,7 +31,7 @@ const EditMoviePage = ({ match, movies, editMovie, history }) => {
 
   const inputChangeHandler = (event, fieldName) => {
     const value = event.target.value;
-    changeFormData(prevState => ({
+    changeFormData((prevState) => ({
       ...prevState,
       [fieldName]: value.trim()
     }))
@@ -44,7 +41,7 @@ const EditMoviePage = ({ match, movies, editMovie, history }) => {
     const inputValue = event.target.value;
     const genreRegExp = /[A-Za-z\s]{3,}/gm;
 
-    changeFormData(prevState => ({
+    changeFormData((prevState) => ({
       ...prevState,
       genres: inputValue.match(genreRegExp)
     }));
@@ -97,8 +94,7 @@ const EditMoviePage = ({ match, movies, editMovie, history }) => {
             id='title'
             value={title}
             required={true}
-            changeHandler={(event) => inputChangeHandler(event, 'title')}
-          />
+            changeHandler={(event) => inputChangeHandler(event, 'title')} />
           <CustomInput
             type='url'
             label='Poster URL:'
@@ -106,8 +102,7 @@ const EditMoviePage = ({ match, movies, editMovie, history }) => {
             id='poster'
             value={posterUrl}
             required={true}
-            changeHandler={(event) => inputChangeHandler(event, 'posterUrl')}
-          />
+            changeHandler={(event) => inputChangeHandler(event, 'posterUrl')} />
           <CustomInput
             type='text'
             label='Director:'
@@ -115,8 +110,7 @@ const EditMoviePage = ({ match, movies, editMovie, history }) => {
             id='director'
             value={director}
             required={true}
-            changeHandler={(event) => inputChangeHandler(event, 'director')}
-          />
+            changeHandler={(event) => inputChangeHandler(event, 'director')} />
           <CustomInput
             type='text'
             label='Genres:'
@@ -124,27 +118,23 @@ const EditMoviePage = ({ match, movies, editMovie, history }) => {
             id='genres'
             value={genres.join(',')}
             required={true}
-            changeHandler={genresChangeHandler}
-          />
+            changeHandler={genresChangeHandler} />
           <CustomTextarea
             label='Description:'
             placeholder='description'
             id='description'
             value={description}
             required={true}
-            changeHandler={(event) => inputChangeHandler(event, 'description')}
-          />
+            changeHandler={(event) => inputChangeHandler(event, 'description')} />
           <div className={styles.ButtonsContainer}>
             <CustomButton
               type='submit'
               value='Submit'
-              clickHandler={submitHandler}
-            />
+              clickHandler={submitHandler} />
             <CustomButton
               type='button'
               value='Go back'
-              clickHandler={goBackHandler}
-            />
+              clickHandler={goBackHandler} />
           </div>
           <div className={styles.ErrorsContainer}>
             { errors.join(' ') }

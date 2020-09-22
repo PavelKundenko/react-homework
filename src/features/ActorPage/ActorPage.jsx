@@ -1,14 +1,11 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
 
+import { actorsDataSelector } from '../../redux/movies/movies.selectors';
+import { propTypesShapes } from '../../constants';
 import styles from './ActorPage.module.scss';
 
-import {actorsDataSelector} from '../../redux/movies/movies.selectors';
-
-import {propTypesShapes} from '../../constants';
 
 const ActorPage = ({ match, actors }) => {
   const actorId = Number(match.params.id);

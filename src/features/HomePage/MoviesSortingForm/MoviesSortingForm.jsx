@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import CustomButton from '../../../components/CustomButton/CustomButton';
 import CustomInput from '../../../components/CustomInput/CustomInput';
-import {searchValueChanged, sortByLikes, sortByRating, resetSorting} from '../../../redux/movies/movies.actions';
+import { searchValueChanged, sortByLikes, sortByRating, resetSorting } from '../../../redux/movies/movies.actions';
 import styles from './MoviesSortingForm.module.scss';
 
 

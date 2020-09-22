@@ -28,7 +28,7 @@ export const sortMoviesByProperty = (movies, stateSortFlag, comparedParam) => {
 export const editMovie = (movies, editableMovieId, newMovieData) => {
   const moviesCopy = [...movies];
 
-  return moviesCopy.map((movie) => movie.id === editableMovieId ? {...movie, ...newMovieData} : movie);
+  return moviesCopy.map((movie) => movie.id === editableMovieId ? { ...movie, ...newMovieData } : movie);
 };
 
 export const deleteMovie = (movies, movieId) => {

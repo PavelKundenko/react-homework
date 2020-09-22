@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {propTypesShapes} from '../../../constants';
+import { propTypesShapes } from '../../../constants';
 import MovieCard from './MovieCard/MovieCard';
+import { filteredMoviesSelector } from '../../../redux/movies/movies.selectors';
 import styles from './MoviesGallery.module.scss';
-import {filteredMoviesSelector} from '../../../redux/movies/movies.selectors';
 
 
 const MoviesGallery = ({ filteredMovies }) => (

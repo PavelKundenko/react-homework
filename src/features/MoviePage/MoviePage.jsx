@@ -1,18 +1,14 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
-
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-import {Link} from 'react-router-dom';
 import Rating from '../../components/Rating/Rating';
 import CustomButton from '../../components/CustomButton/CustomButton';
-
+import { deleteMovie } from '../../redux/movies/movies.actions';
+import { actorsDataSelector, moviesDataSelector } from '../../redux/movies/movies.selectors';
+import { propTypesShapes } from '../../constants';
 import styles from './MoviePage.module.scss';
-
-import {deleteMovie} from '../../redux/movies/movies.actions';
-import {actorsDataSelector, moviesDataSelector} from '../../redux/movies/movies.selectors';
-import {propTypesShapes} from '../../constants';
 
 const MoviePage = ({ moviesData, actorsData, match, history, deleteMovie }) => {
   const activeMovieId = Number(match.params.id);
@@ -26,13 +22,15 @@ const MoviePage = ({ moviesData, actorsData, match, history, deleteMovie }) => {
     if (index === actors.length - 1) {
       return (
         <React.Fragment key={index}>
-          <Link to={`/actor/${actorData.id}`}>{actorData.name}</Link>
-        </React.Fragment>)
+          <Link className={styles.link} to={`/actor/${actorData.id}`}>{actorData.name}</Link>
+        </React.Fragment>
+      )
     } else {
       return (
         <React.Fragment key={index}>
-          <Link to={`/actor/${actorData.id}`}>{actorData.name}</Link><span>, </span>
-        </React.Fragment>)
+          <Link className={styles.link} to={`/actor/${actorData.id}`}>{actorData.name}</Link><span>, </span>
+        </React.Fragment>
+      )
     }
   });
 
@@ -55,12 +53,12 @@ const MoviePage = ({ moviesData, actorsData, match, history, deleteMovie }) => {
       <div className={`${styles.movieInfoContainer} row`}>
         <img className={`${styles.moviePoster} col-md-5`} src={posterUrl} alt='Movie poster' />
         <ul className={`${styles.movieInfo} col-md-7`}>
-          <li>Likes: {likes}</li>
-          <li><Rating rate={stars} changeStarsHandler={() => false} /></li>
-          <li>Director: <i>{director}</i></li>
-          <li>Actors: <i>{ actorsLinks }</i></li>
-          <li>Genres: <i>{ genres.join(', ') }</i></li>
-          <li>Description:
+          <li className={styles.movieInfo__listItem}>Likes: {likes}</li>
+          <li className={styles.movieInfo__listItem}><Rating rate={stars} changeStarsHandler={() => false} /></li>
+          <li className={styles.movieInfo__listItem}>Director: <i>{director}</i></li>
+          <li className={styles.movieInfo__listItem}>Actors: <i>{ actorsLinks }</i></li>
+          <li className={styles.movieInfo__listItem}>Genres: <i>{ genres.join(', ') }</i></li>
+          <li className={styles.movieInfo__listItem}>Description:
             <p>{ description }</p>
           </li>
         </ul>
@@ -75,7 +73,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  deleteMovie: (movieId) => deleteMovie(movieId)
+  deleteMovie
 };
 
 MoviePage.propTypes = {

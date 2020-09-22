@@ -7,10 +7,9 @@ import styles from './CustomInput.module.scss';
 const CustomInput = ({ type, placeholder, changeHandler, label, id, value, required }) => (
   <div className={styles.inputContainer}>
     {
-      label ?
-        <label className={styles.label} htmlFor={id}>{label}</label>
-        :
-        null
+      label ? (
+          <label className={styles.label} htmlFor={id}>{label}</label>
+        ) : null
     }
     <input
       className={`${styles.input} ${label ? styles.withLabel : ''}`}

@@ -1,18 +1,14 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
-
 import PropTypes from 'prop-types';
-
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import CustomButton from '../../components/CustomButton/CustomButton';
-
 import { logOut } from '../../redux/userAccounts/userAccount.actions';
-import {isLoggedSelector, userDataSelector} from '../../redux/userAccounts/userAccount.selectors';
-
+import { isLoggedSelector, userDataSelector } from '../../redux/userAccounts/userAccount.selectors';
+import { propTypesShapes } from '../../constants';
 import styles from './Header.module.scss';
-import {propTypesShapes} from '../../constants';
+
 
 const Header = ({ userData, isLogged, logOut }) => {
 
@@ -24,22 +20,18 @@ const Header = ({ userData, isLogged, logOut }) => {
   return (
     <header className={styles.header}>
       {
-        isLogged ?
-          (<NavLink className={styles.homeLink} to='/home'>Home</NavLink>)
-          :
-          null
+        isLogged ? (
+          <NavLink className={styles.homeLink} to='/home'>Home</NavLink>
+          ) : null
       }
       <h1 className={styles.headerTitle}>Movies</h1>
       {
-        isLogged ?
-        (
+        isLogged ? (
           <div className={styles.userContainer}>
             <p>User: {userData.login} </p>
             <CustomButton value='Log out' clickHandler={logOutHandler} inverted={true}/>
           </div>
-        )
-        :
-        null
+        ) : null
       }
 
     </header>

@@ -1,4 +1,4 @@
-import userAccountTypes from "./userAccount.types";
+import userAccountTypes from './userAccount.types';
 
 export const loginChanged = (newValue) => ({
   type: userAccountTypes.LOGIN_CHANGED,

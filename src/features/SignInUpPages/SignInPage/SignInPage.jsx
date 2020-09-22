@@ -1,19 +1,13 @@
-import React, {useState} from 'react';
-
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-
 import PropTypes from 'prop-types';
-
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import CustomButton from '../../../components/CustomButton/CustomButton';
-
-import {userDataSelector} from '../../../redux/userAccounts/userAccount.selectors';
-import {logIn, loginChanged, passwordChanged} from '../../../redux/userAccounts/userAccount.actions';
-
-import {localStorageObjects, propTypesShapes} from '../../../constants';
-
+import { userDataSelector } from '../../../redux/userAccounts/userAccount.selectors';
+import { logIn, loginChanged, passwordChanged } from '../../../redux/userAccounts/userAccount.actions';
+import { localStorageObjects, propTypesShapes } from '../../../constants';
 import styles from '../SignInUpPage.module.scss';
 
 
@@ -53,8 +47,7 @@ const SignInPage = ({ history, loginChanged, passwordChanged, logIn, userData })
               placeholder='Enter login'
               required={true}
               changeHandler={loginChanged}
-              value={userData.login}
-            />
+              value={userData.login} />
           </div>
           <div className={styles.formControl}>
             <CustomInput
@@ -62,14 +55,12 @@ const SignInPage = ({ history, loginChanged, passwordChanged, logIn, userData })
               placeholder='Enter password'
               required={true}
               changeHandler={passwordChanged}
-              value={userData.password}
-            />
+              value={userData.password} />
           </div>
           <CustomButton
             type='submit'
             value='Sign In'
-            clickHandler={submitHandler}
-          />
+            clickHandler={submitHandler} />
           <p>Don't have an account? <Link to='/sign-up'>Sign Up</Link></p>
           <p className={styles.errorContainer}>
             { errors }

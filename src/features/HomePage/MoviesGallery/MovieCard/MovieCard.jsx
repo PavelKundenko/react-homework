@@ -10,11 +10,11 @@ import { addLike, changeMovieRating, removeLike } from '../../../../redux/movies
 import styles from './MovieCard.module.scss';
 
 
-const MovieCard = ({ id, title, posterUrl, likes, stars, addLike, removeLike, changeRating }) => (
+const MovieCard = ({ id, title, posterUrl, likes, stars, addLike, removeLike, changeMovieRating }) => (
   <div className={`${styles.card} col-lg-3 col-sm-5`}>
     <div>
       <img className={styles.moviePoster} src={posterUrl} alt="Movie poster"/>
-      <h3 className={styles.cardTitle}><Link to={`/movie/${id}`}>{title}</Link></h3>
+      <h3 className={styles.cardTitle}><Link className={styles.link} to={`/movie/${id}`}>{title}</Link></h3>
     </div>
     <div className={styles.assessmentContainer}>
       <div>

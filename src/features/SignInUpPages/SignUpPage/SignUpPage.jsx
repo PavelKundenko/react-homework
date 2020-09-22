@@ -1,20 +1,15 @@
-import React, {useState} from'react'
-
+import React, { useState } from'react'
 import { connect } from 'react-redux';
-
 import PropTypes from 'prop-types';
-
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import CustomInput from '../../../components/CustomInput/CustomInput'
 import CustomButton from '../../../components/CustomButton/CustomButton'
-
-import {loginChanged, passwordChanged, logIn} from '../../../redux/userAccounts/userAccount.actions'
-import {userDataSelector} from '../../../redux/userAccounts/userAccount.selectors'
-
-import {localStorageObjects, propTypesShapes} from '../../../constants';
-
+import { loginChanged, passwordChanged, logIn } from '../../../redux/userAccounts/userAccount.actions'
+import { userDataSelector } from '../../../redux/userAccounts/userAccount.selectors'
+import { localStorageObjects, propTypesShapes } from '../../../constants';
 import styles from '../SignInUpPage.module.scss';
+
 
 const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData }) => {
   const [errors, updateErrors] = useState([]);
@@ -53,7 +48,7 @@ const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData })
       const users = JSON.parse(localStorage.getItem(localStorageObjects.USERS)) || [];
 
       if (users.find((user) => user.login === userData.login)) {
-        updateErrors(prevState => [...prevState, 'This login is already registered. '])
+        updateErrors((prevState) => [...prevState, 'This login is already registered. '])
       } else {
         logIn();
 
@@ -79,8 +74,7 @@ const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData })
               placeholder='Enter login'
               required={true}
               changeHandler={loginChanged}
-              value={userData.login}
-            />
+              value={userData.login} />
           </div>
           <div className={styles.formControl}>
             <CustomInput
@@ -88,14 +82,12 @@ const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData })
               placeholder='Enter password'
               required={true}
               changeHandler={passwordChanged}
-              value={userData.password}
-            />
+              value={userData.password} />
           </div>
           <CustomButton
             type='submit'
             value='Sign Up'
-            clickHandler={submitHandler}
-          />
+            clickHandler={submitHandler} />
           <p>Do you have registered account? <Link to='/sign-in'>Sign In</Link></p>
           <p className={styles.errorContainer}>
             { errors }
