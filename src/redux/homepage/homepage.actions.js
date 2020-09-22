@@ -1,4 +1,4 @@
-import HomepageTypes from "./homepage.types";
+import HomepageTypes from './homepage.types';
 
 export const setActiveMovie = (movieId) => ({
   type: HomepageTypes.SET_ACTIVE_MOVIE,

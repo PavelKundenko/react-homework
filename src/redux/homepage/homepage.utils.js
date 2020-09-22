@@ -1,13 +1,13 @@
 export const changeLikes = (movies, { movieId, likesAmount }) => {
   const moviesCopy =  [...movies];
 
-  return moviesCopy.map((movie) => movie.id === movieId ? {...movie, likes: movie.likes + likesAmount} : movie);
+  return moviesCopy.map((movie) => movie.id === movieId ? { ...movie, likes: movie.likes + likesAmount } : movie);
 };
 
 export const changeRating = (movies, { movieId, newRating }) => {
   const moviesCopy =  [...movies];
 
-  return moviesCopy.map((movie) => movie.id === movieId ? {...movie, stars: newRating } : movie);
+  return moviesCopy.map((movie) => movie.id === movieId ? { ...movie, stars: newRating } : movie);
 };
 
 export const sortMoviesByProperty = (movies, stateSortFlag, comparedParam) => {

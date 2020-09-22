@@ -1,5 +1,4 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 
 import styles from './CustomButton.module.scss';
@@ -9,8 +8,7 @@ const CustomButton = ({ value, clickHandler }) => (
     <button
       type="button"
       className={styles.button}
-      onClick={clickHandler}
-    >
+      onClick={clickHandler} >
       {value}
     </button>
   </div>

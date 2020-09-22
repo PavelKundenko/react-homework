@@ -1,19 +1,15 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
-
 import PropTypes from 'prop-types';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
 import Rating from '../../../../components/Rating/Rating';
-import {addLike, changeMovieRating, removeLike, setActiveMovie} from '../../../../redux/homepage/homepage.actions';
-
+import { addLike, changeMovieRating, removeLike, setActiveMovie } from '../../../../redux/homepage/homepage.actions';
 import styles from './MovieCard.module.scss';
 
-const MovieCard = ({ id, title, posterUrl, likes, stars, setActiveMovie, addLike, removeLike, changeRating }) => (
+
+const MovieCard = ({ id, title, posterUrl, likes, stars, setActiveMovie, addLike, removeLike, changeMovieRating }) => (
   <div className={`${styles.card} col-lg-3 col-sm-5`}>
     <div>
       <img className={styles.moviePoster} src={posterUrl} alt="Movie poster"/>
@@ -22,26 +18,32 @@ const MovieCard = ({ id, title, posterUrl, likes, stars, setActiveMovie, addLike
     <div className={styles.assessmentContainer}>
       <div>
         {likes}
-        <FontAwesomeIcon onClick={() => addLike(id)} className={`${styles.icon} ${styles.like}`} icon={faThumbsUp} />
-        <FontAwesomeIcon onClick={() => removeLike(id)} className={`${styles.icon} ${styles.dislike}`} icon={faThumbsDown} />
+        <FontAwesomeIcon
+          onClick={() => addLike(id)}
+          className={`${styles.icon} ${styles.like}`}
+          icon={faThumbsUp} />
+        <FontAwesomeIcon
+          onClick={() => removeLike(id)}
+          className={`${styles.icon} ${styles.dislike}`}
+          icon={faThumbsDown} />
       </div>
-      <Rating movieId={id} rate={stars} changeRating={changeRating} />
+      <Rating movieId={id} rate={stars} changeRating={changeMovieRating} />
     </div>
   </div>
 );
 
 const mapDispatchToProps = {
-  addLike: (id) => addLike(id),
-  removeLike: (id) => removeLike(id),
-  setActiveMovie: (id) => setActiveMovie(id),
-  changeRating: (id, newRating) => changeMovieRating(id, newRating)
+  addLike,
+  removeLike,
+  setActiveMovie,
+  changeMovieRating
 };
 
 MovieCard.propTypes = {
   addLike: PropTypes.func.isRequired,
   removeLike: PropTypes.func.isRequired,
   setActiveMovie: PropTypes.func.isRequired,
-  changeRating: PropTypes.func.isRequired
+  changeMovieRating: PropTypes.func.isRequired
 };
 
 export default connect(null, mapDispatchToProps)(MovieCard);

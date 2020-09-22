@@ -1,12 +1,8 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { faStar as SolidStar} from "@fortawesome/free-solid-svg-icons";
-
-import { faStar as EmptyStar } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar as SolidStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar as EmptyStar } from '@fortawesome/free-regular-svg-icons';
 
 import styles from './Rating.module.scss';
 
@@ -25,8 +21,7 @@ const Rating = ({ movieId, rate, changeRating }) => {
           className={styles.star}
           key={index}
           icon={SolidStar}
-          onClick={() => changeRating(movieId, index + 1)}
-        />
+          onClick={() => changeRating(movieId, index + 1)} />
       )
     } else {
       return (
@@ -34,8 +29,7 @@ const Rating = ({ movieId, rate, changeRating }) => {
           className={styles.star}
           key={index}
           icon={EmptyStar}
-          onClick={() => changeRating(movieId, index + 1)}
-        />
+          onClick={() => changeRating(movieId, index + 1)} />
       );
     }
   });

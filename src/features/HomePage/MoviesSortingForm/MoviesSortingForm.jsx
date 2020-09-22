@@ -1,14 +1,12 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
-
 import PropTypes from 'prop-types';
 
 import CustomButton from '../../../components/CustomButton/CustomButton';
 import CustomInput from '../../../components/CustomInput/CustomInput';
-
+import { searchValueChanged, sortByLikes, sortByRating, resetSorting } from '../../../redux/homepage/homepage.actions';
 import styles from './MoviesSortingForm.module.scss';
-import {searchValueChanged, sortByLikes, sortByRating, resetSorting} from '../../../redux/homepage/homepage.actions';
+
 
 const MoviesSortingForm = ({ searchFieldValueChanged, sortByLikes, sortByRating, resetSorting }) => {
   return (

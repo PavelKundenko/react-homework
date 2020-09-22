@@ -1,6 +1,6 @@
-import {moviesData} from "../../movies.data";
-import HomepageTypes from "./homepage.types";
-import { changeRating, changeLikes, sortMoviesByProperty } from "./homepage.utils";
+import HomepageTypes from './homepage.types';
+import { moviesData } from '../../movies.data';
+import { changeRating, changeLikes, sortMoviesByProperty } from './homepage.utils';
 
 const INITIAL_STATE = {
   movies: [...moviesData],
@@ -64,8 +64,6 @@ export const homepageReducer = (state = INITIAL_STATE, action) => {
       };
 
     default:
-      return {
-      ...state
-    }
+      return state
   }
 };
