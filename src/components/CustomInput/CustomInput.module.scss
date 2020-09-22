@@ -1,0 +1,16 @@
+.inputContainer {
+  margin: 10px;
+
+  .input {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 18px;
+    border: 1px solid #343A40;
+    border-radius: 5px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+

@@ -1,26 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import HomePage from './features/HomePage/HomePage';
+
+import styles from './App.module.scss';
+
+const App = () => (
+  <div className={styles.app}>
+    <header className={styles.header}>
+      <h1>Movies</h1>
+    </header>
+    <HomePage />
+    <footer className={styles.footer}>
+      &copy; Pavel Kundenko EPAM 2020
+    </footer>
+  </div>
+);
+
 
 export default App;

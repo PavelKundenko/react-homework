@@ -1,0 +1,19 @@
+.selectPostLabel {
+  margin-top: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sortMoviesForm {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}

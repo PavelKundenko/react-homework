@@ -1,0 +1,24 @@
+.movieDetails {
+  position: sticky;
+  top: 20px;
+
+  .movieInfoContainer {
+    .movieInfo {
+      line-height: 1.5;
+      list-style: none;
+      padding-left: 10px;
+      li {
+        margin-top: 10px;
+      }
+    }
+
+    .moviePoster {
+      max-height: 600px;
+      width: 50%;
+    }
+  }
+
+  .movieDescription {
+    margin-top: 20px;
+  }
+}

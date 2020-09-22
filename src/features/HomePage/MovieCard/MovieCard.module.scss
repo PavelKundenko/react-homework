@@ -1,0 +1,54 @@
+.card {
+  margin: 20px 10px;
+  position: relative;
+  border: 1px solid #343A40;
+  border-radius: 5px;
+  padding: 0 0 30px;
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+  }
+
+  .cardTitle {
+    margin: 20px 0;
+    padding: 0 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      text-shadow: 1px 1px 10px rgba(0,123,255, 0.5);
+      text-decoration: underline;
+    }
+  }
+
+  .moviePoster {
+    width: 100%;
+    height: 350px;
+  }
+
+  .assessmentContainer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    user-select: none;
+  }
+
+  .icon {
+    margin: 0 5px;
+    font-size: 20px;
+    color: lightblue;
+    cursor: pointer;
+    &.like {
+      color: #007BFF;
+    }
+    &.dislike {
+      color: #6C757D;
+    }
+  }
+}
+
+
