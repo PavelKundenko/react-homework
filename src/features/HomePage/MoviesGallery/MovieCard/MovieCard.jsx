@@ -7,8 +7,9 @@ import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
 import Rating from '../../../../components/Rating/Rating';
 import { addLikeAsync, changeRatingAsync } from '../../../../redux/movies/movies.async.actions';
+import { propTypesShapes } from '../../../../constants';
 import styles from './MovieCard.module.scss';
-import {propTypesShapes} from '../../../../constants';
+
 
 
 const MovieCard = ({ movieData, addLikeAsync, changeRatingAsync }) => {

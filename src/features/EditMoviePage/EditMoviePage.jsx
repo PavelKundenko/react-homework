@@ -6,11 +6,11 @@ import { propTypesShapes } from '../../constants';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomTextarea from '../../components/CustomTextarea/CustomTextarea';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import Spinner from '../../components/Spinner/Spinner';
 import { activeMovieDataUpdated } from '../../redux/movies/movies.actions';
 import { fetchUpdateMovie, fetchMovieById } from '../../redux/movies/movies.async.actions';
 import { activeMovieDataSelector } from '../../redux/movies/movies.selectors';
 import styles from './EditMoviePage.module.scss';
-import Spinner from '../../components/Spinner/Spinner';
 
 
 class EditMoviePage extends Component  {

@@ -1,5 +1,3 @@
-// import { moviesData } from '../../movies.data';
-// import { actorsData } from '../../actors.data';
 import MoviesTypes from './movies.types';
 import { changeRating, changeLikes, sortMoviesByProperty, editMovie, deleteMovie } from './movies.utils';
 
