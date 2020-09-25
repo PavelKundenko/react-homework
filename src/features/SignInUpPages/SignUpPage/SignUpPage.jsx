@@ -8,6 +8,7 @@ import CustomButton from '../../../components/CustomButton/CustomButton'
 import { loginChanged, passwordChanged, logIn } from '../../../redux/userAccounts/userAccount.actions'
 import { userDataSelector } from '../../../redux/userAccounts/userAccount.selectors'
 import { localStorageObjects, propTypesShapes } from '../../../constants';
+import Api  from '../../../helpers/Api'
 import styles from '../SignInUpPage.module.scss';
 
 
@@ -45,21 +46,15 @@ const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData })
     if (!validationResult.isValid) {
       updateErrors(() => [...validationResult.errors]);
     } else {
-      const users = JSON.parse(localStorage.getItem(localStorageObjects.USERS)) || [];
+      Api.register(userData)
+        .then((response) => {
+          localStorage.setItem(localStorageObjects.CURRENT_USER, JSON.stringify(response.data));
 
-      if (users.find((user) => user.login === userData.login)) {
-        updateErrors((prevState) => [...prevState, 'This login is already registered. '])
-      } else {
-        logIn();
+          logIn();
 
-        users.push(userData);
-
-        localStorage.setItem(localStorageObjects.USERS, JSON.stringify(users));
-
-        localStorage.setItem(localStorageObjects.CURRENT_USER, JSON.stringify(userData));
-
-        history.push('/home');
-      }
+          history.push('/home');
+        })
+        .catch(() => updateErrors(() => ['Request failed. Try again later.']))
     }
   };
 

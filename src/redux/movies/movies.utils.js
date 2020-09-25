@@ -1,7 +1,7 @@
-export const changeLikes = (movies, { movieId, likesAmount }) => {
+export const changeLikes = (movies, { movieId, updatedMovie }) => {
   const moviesCopy =  [...movies];
 
-  return moviesCopy.map((movie) => movie.id === movieId ? { ...movie, likes: movie.likes + likesAmount } : movie);
+  return moviesCopy.map((movie) => movie.id === movieId ? updatedMovie : movie);
 };
 
 export const changeRating = (movies, { movieId, newRating }) => {

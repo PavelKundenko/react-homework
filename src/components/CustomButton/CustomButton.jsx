@@ -17,7 +17,9 @@ const CustomButton = ({ value, clickHandler, type, inverted }) => (
 
 CustomButton.propTypes = {
   value: PropTypes.string.isRequired,
-  clickHandler: PropTypes.func
+  clickHandler: PropTypes.func,
+  type: PropTypes.string,
+  inverted: PropTypes.bool
 };
 
 CustomButton.defaultProps = {

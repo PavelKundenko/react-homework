@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React,  { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -6,48 +6,51 @@ import { propTypesShapes } from '../../constants';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomTextarea from '../../components/CustomTextarea/CustomTextarea';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import { editMovie } from '../../redux/movies/movies.actions';
-import { moviesDataSelector } from '../../redux/movies/movies.selectors';
-
+import { activeMovieDataUpdated } from '../../redux/movies/movies.actions';
+import { fetchUpdateMovie, fetchMovieById } from '../../redux/movies/movies.async.actions';
+import { activeMovieDataSelector } from '../../redux/movies/movies.selectors';
 import styles from './EditMoviePage.module.scss';
+import Spinner from '../../components/Spinner/Spinner';
 
 
-const EditMoviePage = ({ match, movies, editMovie, history }) => {
-  const editableMovieId = Number(match.params.id);
+class EditMoviePage extends Component  {
+  componentDidMount() {
+    const { match, fetchMovieById, activeMovieData } = this.props;
 
-  const { id, title, posterUrl, director, genres, description } = movies.find((movie) => movie.id === editableMovieId);
-
-  const INITIAL_DATA = {
-    title,
-    posterUrl,
-    director,
-    genres,
-    description,
-  };
-
-  const [formData, changeFormData] = useState(INITIAL_DATA);
-
-  const [errors, setErrors] = useState([]);
-
-  const inputChangeHandler = (event, fieldName) => {
-    const value = event.target.value;
-    changeFormData((prevState) => ({
+    fetchMovieById(Number(match.params.id));
+    this.setState((prevState) => ({
       ...prevState,
-      [fieldName]: value.trim()
+      formData: activeMovieData
     }))
+  }
+
+  state = {
+    initialData: null,
+    errors: []
   };
 
-  const genresChangeHandler = (event) => {
+  inputChangeHandler = (event, fieldName) => {
+    const value = event.target.value;
+    const { activeMovieData, activeMovieDataUpdated } = this.props;
+
+    activeMovieDataUpdated({
+      ...activeMovieData,
+      [fieldName]: value.trim()
+    });
+  };
+
+  genresChangeHandler = (event) => {
     const inputValue = event.target.value;
     const genreRegExp = /[A-Za-z\s]{3,}/gm;
+    const { activeMovieData, activeMovieDataUpdated } = this.props;
 
-    changeFormData((prevState) => ({
-      ...prevState,
+    activeMovieDataUpdated({
+      ...activeMovieData,
       genres: inputValue.match(genreRegExp)
-    }));
+    });
   };
 
-  const validateForm = (formData) => {
+  validateForm = (formData) => {
     const validationResult = {
       isValid: true,
       errors: []
@@ -69,93 +72,122 @@ const EditMoviePage = ({ match, movies, editMovie, history }) => {
     return validationResult;
   };
 
-  const submitHandler = () => {
-    const validationResult = validateForm(formData);
+  submitHandler = (event) => {
+    event.preventDefault();
+
+    const { history, fetchUpdateMovie, activeMovieData, match } = this.props;
+    const validationResult = this.validateForm(activeMovieData);
 
     if (!validationResult.isValid) {
-      setErrors(() => [...validationResult.errors]);
+      this.setState({
+        errors: [...validationResult.errors]
+      });
     } else {
-      setErrors(() => []);
-      editMovie(id, formData);
-      history.push(`/movie/${id}`);
+      this.setState({
+        errors: []
+      });
+
+      fetchUpdateMovie(Number(match.params.id), {
+        ...activeMovieData,
+      });
+
+      history.push(`/movie/${match.params.id}`);
     }
   };
 
-  const goBackHandler = () => history.push(`/movie/${id}`);
+  goBackHandler = () => {
+    const { history, match } = this.props;
 
-  return (
-    <div className='container'>
-      <div className='row justify-content-center'>
-        <form className='col-lg-7 col-md-10'>
-          <CustomInput
-            type='text'
-            label='Title:'
-            placeholder='title'
-            id='title'
-            value={title}
-            required={true}
-            changeHandler={(event) => inputChangeHandler(event, 'title')} />
-          <CustomInput
-            type='url'
-            label='Poster URL:'
-            placeholder='url'
-            id='poster'
-            value={posterUrl}
-            required={true}
-            changeHandler={(event) => inputChangeHandler(event, 'posterUrl')} />
-          <CustomInput
-            type='text'
-            label='Director:'
-            placeholder='director'
-            id='director'
-            value={director}
-            required={true}
-            changeHandler={(event) => inputChangeHandler(event, 'director')} />
-          <CustomInput
-            type='text'
-            label='Genres:'
-            placeholder='type genres divided by any separator, except whitespace'
-            id='genres'
-            value={genres.join(',')}
-            required={true}
-            changeHandler={genresChangeHandler} />
-          <CustomTextarea
-            label='Description:'
-            placeholder='description'
-            id='description'
-            value={description}
-            required={true}
-            changeHandler={(event) => inputChangeHandler(event, 'description')} />
-          <div className={styles.ButtonsContainer}>
-            <CustomButton
-              type='submit'
-              value='Submit'
-              clickHandler={submitHandler} />
-            <CustomButton
-              type='button'
-              value='Go back'
-              clickHandler={goBackHandler} />
+    history.push(`/movie/${match.params.id}`)
+  };
+
+  render() {
+    const { activeMovieData } = this.props;
+
+    if (!activeMovieData) {
+      return <Spinner/>
+    } else {
+      const { title, posterUrl, director, genres, description } = activeMovieData;
+
+      return (
+        <div className='container'>
+          <div className='row justify-content-center'>
+            <form className='col-lg-7 col-md-10'>
+              <CustomInput
+                type='text'
+                label='Title:'
+                placeholder='title'
+                id='title'
+                value={title}
+                required={true}
+                changeHandler={(event) => this.inputChangeHandler(event, 'title')} />
+              <CustomInput
+                type='url'
+                label='Poster URL:'
+                placeholder='url'
+                id='poster'
+                value={posterUrl}
+                required={true}
+                changeHandler={(event) => this.inputChangeHandler(event, 'posterUrl')} />
+              <CustomInput
+                type='text'
+                label='Director:'
+                placeholder='director'
+                id='director'
+                value={director}
+                required={true}
+                changeHandler={(event) => this.inputChangeHandler(event, 'director')} />
+              <CustomInput
+                type='text'
+                label='Genres:'
+                placeholder='type genres divided by any separator, except whitespace'
+                id='genres'
+                value={genres.join(',')}
+                required={true}
+                changeHandler={this.genresChangeHandler} />
+              <CustomTextarea
+                label='Description:'
+                placeholder='description'
+                id='description'
+                value={description}
+                required={true}
+                changeHandler={(event) => this.inputChangeHandler(event, 'description')} />
+              <div className={styles.ButtonsContainer}>
+                <CustomButton
+                  type='submit'
+                  value='Submit'
+                  clickHandler={this.submitHandler} />
+                <CustomButton
+                  type='button'
+                  value='Go back'
+                  clickHandler={this.goBackHandler} />
+              </div>
+              <div className={styles.ErrorsContainer}>
+                { this.state.errors.join(' ') }
+              </div>
+            </form>
           </div>
-          <div className={styles.ErrorsContainer}>
-            { errors.join(' ') }
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-};
+        </div>
+      );
+    }
+  }
+}
 
 const mapStateToProps = (state) => ({
-  movies: moviesDataSelector(state)
+  activeMovieData: activeMovieDataSelector(state),
 });
 
 const mapDispatchToProps = {
-  editMovie: (editableMovieId, editableMovieData) => editMovie(editableMovieId, editableMovieData)
+  fetchUpdateMovie,
+  fetchMovieById,
+  activeMovieDataUpdated
 };
 
 EditMoviePage.propTypes = {
-  movies: PropTypes.arrayOf(propTypesShapes.MOVIE).isRequired,
-  editMovie: PropTypes.func.isRequired
+  activeMovieData: PropTypes.shape(propTypesShapes.MOVIE),
+  fetchUpdateMovie: PropTypes.func.isRequired,
+  fetchMovieById: PropTypes.func.isRequired,
+  activeMovieDataUpdated: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditMoviePage);

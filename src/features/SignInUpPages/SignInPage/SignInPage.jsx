@@ -5,70 +5,79 @@ import { Link } from 'react-router-dom';
 
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import CustomButton from '../../../components/CustomButton/CustomButton';
+import Spinner from '../../../components/Spinner/Spinner';
 import { userDataSelector } from '../../../redux/userAccounts/userAccount.selectors';
 import { logIn, loginChanged, passwordChanged } from '../../../redux/userAccounts/userAccount.actions';
 import { localStorageObjects, propTypesShapes } from '../../../constants';
+import Api from '../../../helpers/Api';
 import styles from '../SignInUpPage.module.scss';
 
 
-const SignInPage = ({ history, loginChanged, passwordChanged, logIn, userData }) => {
-  const [errors, updateErrors] = useState([]);
+
+const SignInPage = ({ history, loginChanged, passwordChanged, logIn, userData, isUsersLoading }) => {
+  const [errors, updateErrors] = useState('');
 
   const submitHandler = (event) => {
     event.preventDefault();
 
-    updateErrors(() => []);
+    updateErrors(() => '');
 
-    const users = JSON.parse(localStorage.getItem(localStorageObjects.USERS)) || [];
+    const { login, password } = userData;
 
-    const currentUser = users.find((user) => user.login === userData.login);
-
-    if (!currentUser) {
-     updateErrors(() => ['There is no registered user with this login. Register please. ']);
-    } else if (currentUser.password !== userData.password) {
-      updateErrors(() => ['Incorrect password. '])
+    if (!login.trim() || !password.trim()) {
+      updateErrors(() => 'Enter login and password.');
     } else {
-      localStorage.setItem(localStorageObjects.CURRENT_USER, JSON.stringify(currentUser));
+      Api.logIn(userData)
+        .then((response) => {
+          if (!response.data.length) {
+            updateErrors(() => 'Invalid login or password');
+          } else {
+            localStorage.setItem(localStorageObjects.CURRENT_USER, JSON.stringify(userData));
 
-      logIn();
+            logIn();
 
-      history.push('/home');
+            history.push('/home');
+          }
+        })
+        .catch(() => updateErrors(() => 'Server error occurred. Try again later.'))
     }
   };
 
-  return (
-    <div className='container'>
-      <div className='row justify-content-center'>
-        <form className={`${styles.form} col-md-6`}>
-          <h2 className={styles.formTitle}>Please log in</h2>
-          <div className={styles.formControl}>
-            <CustomInput
-              type='text'
-              placeholder='Enter login'
-              required={true}
-              changeHandler={loginChanged}
-              value={userData.login} />
+  return isUsersLoading ? (
+        <Spinner />
+      ) : (
+        <div className='container'>
+          <div className='row justify-content-center'>
+            <form className={`${styles.form} col-md-6`}>
+              <h2 className={styles.formTitle}>Please log in</h2>
+              <div className={styles.formControl}>
+                <CustomInput
+                  type='text'
+                  placeholder='Enter login'
+                  required={true}
+                  changeHandler={loginChanged}
+                  value={userData.login} />
+              </div>
+              <div className={styles.formControl}>
+                <CustomInput
+                  type='password'
+                  placeholder='Enter password'
+                  required={true}
+                  changeHandler={passwordChanged}
+                  value={userData.password} />
+              </div>
+              <CustomButton
+                type='submit'
+                value='Sign In'
+                clickHandler={submitHandler} />
+              <p>Don't have an account? <Link to='/sign-up'>Sign Up</Link></p>
+              <p className={styles.errorContainer}>
+                { errors }
+              </p>
+            </form>
           </div>
-          <div className={styles.formControl}>
-            <CustomInput
-              type='password'
-              placeholder='Enter password'
-              required={true}
-              changeHandler={passwordChanged}
-              value={userData.password} />
-          </div>
-          <CustomButton
-            type='submit'
-            value='Sign In'
-            clickHandler={submitHandler} />
-          <p>Don't have an account? <Link to='/sign-up'>Sign Up</Link></p>
-          <p className={styles.errorContainer}>
-            { errors }
-          </p>
-        </form>
-      </div>
-    </div>
-  );
+        </div>
+      )
 };
 
 const mapStateToProps = (state) => ({
@@ -78,7 +87,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   loginChanged: (event) => loginChanged(event.target.value),
   passwordChanged: (event) => passwordChanged(event.target.value),
-  logIn
+  logIn,
 };
 
 SignInPage.propTypes = {

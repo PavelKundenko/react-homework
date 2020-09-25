@@ -29,11 +29,13 @@ CustomTextarea.propTypes = {
   changeHandler: PropTypes.func,
   label: PropTypes.string,
   id: PropTypes.string,
-  value: PropTypes.string
+  value: PropTypes.string,
+  required: PropTypes.bool
 };
 
 CustomTextarea.defaultProps = {
-  value: ''
+  value: '',
+  required: false
 };
 
 export default CustomTextarea;
