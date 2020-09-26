@@ -7,7 +7,6 @@ import MovieCard from './MovieCard/MovieCard';
 import { filteredMoviesSelector } from '../../../redux/movies/movies.selectors';
 import styles from './MoviesGallery.module.scss';
 
-
 const MoviesGallery = ({ filteredMovies }) => (
   <div className={styles.cardContainer}>
     {

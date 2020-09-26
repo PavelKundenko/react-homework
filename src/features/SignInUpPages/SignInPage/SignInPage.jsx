@@ -10,23 +10,21 @@ import { logIn, loginChanged, passwordChanged } from '../../../redux/userAccount
 import { localStorageObjects, propTypesShapes } from '../../../constants';
 import styles from '../SignInUpPage.module.scss';
 
-
 const SignInPage = ({ history, loginChanged, passwordChanged, logIn, userData }) => {
-  const [errors, updateErrors] = useState([]);
+  const [error, updateErrors] = useState('');
 
   const submitHandler = (event) => {
     event.preventDefault();
 
-    updateErrors(() => []);
+    updateErrors(() => '');
 
     const users = JSON.parse(localStorage.getItem(localStorageObjects.USERS)) || [];
-
     const currentUser = users.find((user) => user.login === userData.login);
 
     if (!currentUser) {
-     updateErrors(() => ['There is no registered user with this login. Register please. ']);
+     updateErrors(() => 'There is no registered user with this login. Register please.');
     } else if (currentUser.password !== userData.password) {
-      updateErrors(() => ['Incorrect password. '])
+      updateErrors(() => 'Incorrect password.')
     } else {
       localStorage.setItem(localStorageObjects.CURRENT_USER, JSON.stringify(currentUser));
 
@@ -63,7 +61,7 @@ const SignInPage = ({ history, loginChanged, passwordChanged, logIn, userData })
             clickHandler={submitHandler} />
           <p>Don't have an account? <Link to='/sign-up'>Sign Up</Link></p>
           <p className={styles.errorContainer}>
-            { errors }
+            { error }
           </p>
         </form>
       </div>

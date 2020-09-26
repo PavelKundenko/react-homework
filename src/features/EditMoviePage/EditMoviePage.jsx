@@ -8,15 +8,13 @@ import CustomTextarea from '../../components/CustomTextarea/CustomTextarea';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import { editMovie } from '../../redux/movies/movies.actions';
 import { moviesDataSelector } from '../../redux/movies/movies.selectors';
-
 import styles from './EditMoviePage.module.scss';
 
-
 const EditMoviePage = ({ match, movies, editMovie, history }) => {
+  const [errors, setErrors] = useState([]);
+
   const editableMovieId = Number(match.params.id);
-
   const { id, title, posterUrl, director, genres, description } = movies.find((movie) => movie.id === editableMovieId);
-
   const INITIAL_DATA = {
     title,
     posterUrl,
@@ -27,10 +25,9 @@ const EditMoviePage = ({ match, movies, editMovie, history }) => {
 
   const [formData, changeFormData] = useState(INITIAL_DATA);
 
-  const [errors, setErrors] = useState([]);
-
   const inputChangeHandler = (event, fieldName) => {
     const value = event.target.value;
+
     changeFormData((prevState) => ({
       ...prevState,
       [fieldName]: value.trim()
@@ -48,32 +45,22 @@ const EditMoviePage = ({ match, movies, editMovie, history }) => {
   };
 
   const validateForm = (formData) => {
-    const validationResult = {
-      isValid: true,
-      errors: []
-    };
+    const validationErrors = [];
+    const urlRegExp = /(http(s)?:\/\/.)[-a-zA-Z0-9%:._]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9_.?&/]*)/gm;
 
     if (formData.title.length < 3) {
-      validationResult.errors.push('Invalid title.')
+      validationErrors.push('Invalid title.')
+    } else if (!urlRegExp.test(formData.posterUrl)) {
+      validationErrors.push('Invalid poster url.');
     }
-
-    const urlRegExp = /(http(s)?:\/\/.)[-a-zA-Z0-9%:._]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9_.?&/]*)/gm;
-    if (!urlRegExp.test(formData.posterUrl)) {
-      validationResult.errors.push('Invalid poster url.');
-    }
-
-    if (validationResult.errors.length) {
-      validationResult.isValid = false;
-    }
-
-    return validationResult;
+    return validationErrors;
   };
 
   const submitHandler = () => {
-    const validationResult = validateForm(formData);
+    const validationErrors = validateForm(formData);
 
-    if (!validationResult.isValid) {
-      setErrors(() => [...validationResult.errors]);
+    if (validationErrors.length) {
+      setErrors(() => [...validationErrors]);
     } else {
       setErrors(() => []);
       editMovie(id, formData);

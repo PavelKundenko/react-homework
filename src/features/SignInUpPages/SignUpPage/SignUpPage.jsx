@@ -15,24 +15,15 @@ const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData })
   const [errors, updateErrors] = useState([]);
 
   const validateForm = (formData) => {
-    const validationResult = {
-      isValid: true,
-      errors: []
-    };
+    const validationErrors = [];
 
     if (formData.login.length < 4) {
-      validationResult.errors.push('Invalid login. ');
+      validationErrors.push('Invalid login. ');
+    } else if (formData.password.length < 6) {
+      validationErrors.push('Password should include at least 6 characters. ');
     }
 
-    if (formData.password.length < 6) {
-      validationResult.errors.push('Password should include at least 6 characters. ');
-    }
-
-    if (validationResult.errors.length) {
-      validationResult.isValid = false;
-    }
-
-    return validationResult;
+    return validationErrors;
   };
 
   const submitHandler = (event) => {
@@ -40,10 +31,10 @@ const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData })
 
     updateErrors(() => []);
 
-    const validationResult = validateForm(userData);
+    const validationErrors = validateForm(userData);
 
-    if (!validationResult.isValid) {
-      updateErrors(() => [...validationResult.errors]);
+    if (validationErrors.length) {
+      updateErrors(() => [...validationErrors]);
     } else {
       const users = JSON.parse(localStorage.getItem(localStorageObjects.USERS)) || [];
 

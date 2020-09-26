@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -12,24 +12,22 @@ import styles from './MoviePage.module.scss';
 
 const MoviePage = ({ moviesData, actorsData, match, history, deleteMovie }) => {
   const activeMovieId = Number(match.params.id);
-
   const activeMovieData = moviesData.find((movie) => movie.id === activeMovieId);
-
   const { id, title, posterUrl, description, likes, stars, director, actors, genres } = activeMovieData;
 
   const actorsLinks = actors.map((actorId, index) => {
     const actorData = actorsData.find((actor) => actor.id === actorId);
     if (index === actors.length - 1) {
       return (
-        <React.Fragment key={index}>
+        <Fragment key={index}>
           <Link className={styles.link} to={`/actor/${actorData.id}`}>{actorData.name}</Link>
-        </React.Fragment>
+        </Fragment>
       )
     } else {
       return (
-        <React.Fragment key={index}>
+        <Fragment key={index}>
           <Link className={styles.link} to={`/actor/${actorData.id}`}>{actorData.name}</Link><span>, </span>
-        </React.Fragment>
+        </Fragment>
       )
     }
   });

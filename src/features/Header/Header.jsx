@@ -9,9 +9,7 @@ import { isLoggedSelector, userDataSelector } from '../../redux/userAccounts/use
 import { propTypesShapes } from '../../constants';
 import styles from './Header.module.scss';
 
-
 const Header = ({ userData, isLogged, logOut }) => {
-
   const logOutHandler = () => {
     localStorage.removeItem('currentUser');
     logOut();
@@ -19,19 +17,15 @@ const Header = ({ userData, isLogged, logOut }) => {
 
   return (
     <header className={styles.header}>
-      {
-        isLogged ? (
-          <NavLink className={styles.homeLink} to='/home'>Home</NavLink>
-          ) : null
-      }
+      { isLogged && (<NavLink className={styles.homeLink} to='/home'>Home</NavLink>) }
       <h1 className={styles.headerTitle}>Movies</h1>
       {
-        isLogged ? (
+        isLogged && (
           <div className={styles.userContainer}>
             <p>User: {userData.login} </p>
             <CustomButton value='Log out' clickHandler={logOutHandler} inverted={true}/>
           </div>
-        ) : null
+        )
       }
 
     </header>
