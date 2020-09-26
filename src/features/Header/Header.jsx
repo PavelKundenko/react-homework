@@ -12,6 +12,7 @@ import styles from './Header.module.scss';
 const Header = ({ userData, isLogged, logOut }) => {
   const logOutHandler = () => {
     localStorage.removeItem('currentUser');
+
     logOut();
   };
 

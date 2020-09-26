@@ -12,20 +12,14 @@ import { fetchUpdateMovie, fetchMovieById } from '../../redux/movies/movies.asyn
 import { activeMovieDataSelector } from '../../redux/movies/movies.selectors';
 import styles from './EditMoviePage.module.scss';
 
-
 class EditMoviePage extends Component  {
   componentDidMount() {
-    const { match, fetchMovieById, activeMovieData } = this.props;
+    const { match, fetchMovieById } = this.props;
 
     fetchMovieById(Number(match.params.id));
-    this.setState((prevState) => ({
-      ...prevState,
-      formData: activeMovieData
-    }))
   }
 
   state = {
-    initialData: null,
     errors: []
   };
 

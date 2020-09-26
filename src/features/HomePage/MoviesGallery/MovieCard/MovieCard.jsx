@@ -10,8 +10,6 @@ import { addLikeAsync, changeRatingAsync } from '../../../../redux/movies/movies
 import { propTypesShapes } from '../../../../constants';
 import styles from './MovieCard.module.scss';
 
-
-
 const MovieCard = ({ movieData, addLikeAsync, changeRatingAsync }) => {
   const { id, title, posterUrl, likes, stars } = movieData;
 

@@ -9,7 +9,6 @@ import { fetchMovies } from '../../../redux/movies/movies.async.actions';
 import { filteredMoviesSelector, isMoviesLoadingSelector } from '../../../redux/movies/movies.selectors';
 import styles from './MoviesGallery.module.scss';
 
-
 class MoviesGallery extends Component{
   componentDidMount = () => {
     const { fetchMovies } = this.props;

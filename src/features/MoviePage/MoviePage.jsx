@@ -50,7 +50,6 @@ class MoviePage extends Component {
     if (!activeMovieData || !actorsData) {
       return <Spinner/>
     } else {
-
       const { id, title, posterUrl, description, likes, stars, director, actors, genres } = activeMovieData;
 
       return (

@@ -12,8 +12,6 @@ import { localStorageObjects, propTypesShapes } from '../../../constants';
 import Api from '../../../helpers/Api';
 import styles from '../SignInUpPage.module.scss';
 
-
-
 const SignInPage = ({ history, loginChanged, passwordChanged, logIn, userData, isUsersLoading }) => {
   const [errors, updateErrors] = useState('');
 
