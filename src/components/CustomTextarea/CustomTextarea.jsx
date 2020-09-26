@@ -3,14 +3,9 @@ import PropTypes from 'prop-types';
 
 import styles from './CustomTextarea.module.scss';
 
-
 const CustomTextarea = ({ placeholder, changeHandler, label, id, value, required }) => (
   <div className={styles.textareaContainer}>
-    {
-      label ? (
-        <label className={styles.label} htmlFor={id}>{label}</label>
-        ) : null
-    }
+    { label && (<label className={styles.label} htmlFor={id}>{label}</label>) }
     <textarea
       className={styles.textarea}
       placeholder={placeholder}

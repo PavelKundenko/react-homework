@@ -6,7 +6,6 @@ import { faStar as EmptyStar } from '@fortawesome/free-regular-svg-icons';
 
 import styles from './Rating.module.scss';
 
-
 const Rating = ({ movieId, rate, changeRating }) => {
   const starTypes = {
     SOLID: 'solid',

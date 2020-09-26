@@ -6,7 +6,6 @@ import { actorsDataSelector } from '../../redux/movies/movies.selectors';
 import { propTypesShapes } from '../../constants';
 import styles from './ActorPage.module.scss';
 
-
 const ActorPage = ({ match, actors }) => {
   const actorId = Number(match.params.id);
   const { name, imgUrl, biography } = actors.find((actor) => actor.id === actorId);

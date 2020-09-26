@@ -7,7 +7,6 @@ import CustomInput from '../../../components/CustomInput/CustomInput';
 import { searchValueChanged, sortByLikes, sortByRating, resetSorting } from '../../../redux/movies/movies.actions';
 import styles from './MoviesSortingForm.module.scss';
 
-
 const MoviesSortingForm = ({ searchFieldValueChanged, sortByLikes, sortByRating, resetSorting }) => {
   return (
     <form className={styles.sortMoviesForm}>
