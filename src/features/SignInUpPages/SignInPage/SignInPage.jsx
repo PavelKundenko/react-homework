@@ -6,13 +6,14 @@ import { Link } from 'react-router-dom';
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import CustomButton from '../../../components/CustomButton/CustomButton';
 import Spinner from '../../../components/Spinner/Spinner';
+import WithTranslation from '../../../hocs/WithTranslation/WithTranslation';
 import { userDataSelector } from '../../../redux/userAccounts/userAccount.selectors';
 import { logIn, loginChanged, passwordChanged } from '../../../redux/userAccounts/userAccount.actions';
 import { localStorageObjects, propTypesShapes } from '../../../constants';
 import Api from '../../../helpers/Api';
 import styles from '../SignInUpPage.module.scss';
 
-const SignInPage = ({ history, loginChanged, passwordChanged, logIn, userData, isUsersLoading }) => {
+const SignInPage = ({ history, loginChanged, passwordChanged, logIn, userData, isUsersLoading, localizationData }) => {
   const [errors, updateErrors] = useState('');
 
   const submitHandler = (event) => {
@@ -47,28 +48,28 @@ const SignInPage = ({ history, loginChanged, passwordChanged, logIn, userData, i
         <div className='container'>
           <div className='row justify-content-center'>
             <form className={`${styles.form} col-md-6`}>
-              <h2 className={styles.formTitle}>Please log in</h2>
+              <h2 className={styles.formTitle}>{localizationData.headline}</h2>
               <div className={styles.formControl}>
                 <CustomInput
                   type='text'
-                  placeholder='Enter login'
+                  placeholder={localizationData.loginPlaceholder}
                   required={true}
-                  changeHandler={loginChanged}
+                  onChange={loginChanged}
                   value={userData.login} />
               </div>
               <div className={styles.formControl}>
                 <CustomInput
                   type='password'
-                  placeholder='Enter password'
+                  placeholder={localizationData.passwordPlaceholder}
                   required={true}
-                  changeHandler={passwordChanged}
+                  onChange={passwordChanged}
                   value={userData.password} />
               </div>
               <CustomButton
                 type='submit'
-                value='Sign In'
+                value={localizationData.buttonSubmit}
                 clickHandler={submitHandler} />
-              <p>Don't have an account? <Link to='/sign-up'>Sign Up</Link></p>
+              <p>{localizationData.labelSignUp} <Link to='/sign-up'>{localizationData.linkSignUp}</Link></p>
               <p className={styles.errorContainer}>
                 { errors }
               </p>
@@ -95,4 +96,6 @@ SignInPage.propTypes = {
   logIn: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignInPage);
+const withConnect = connect(mapStateToProps, mapDispatchToProps)(SignInPage);
+
+export default WithTranslation(withConnect, SignInPage.name);

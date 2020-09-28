@@ -6,3 +6,7 @@ export const filteredMoviesSelector = (state) => state.moviesReducer.movies
 export const isMoviesLoadingSelector = (state) => state.moviesReducer.isMoviesDataLoading;
 
 export const activeMovieDataSelector = (state) => state.moviesReducer.activeMovieData;
+
+export const localizationSelector = (state) => state.moviesReducer.currentLocalization;
+
+export const nextLocalizationSelector = (state) => state.moviesReducer.nextLocalization;

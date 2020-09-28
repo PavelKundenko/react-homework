@@ -13,7 +13,11 @@
     text-align: center;
   }
 
-  .userContainer {
+  .navigation {
+    flex: 1;
+  }
+
+  .headerControls {
     flex: 1;
     display: flex;
     justify-content: flex-end;
@@ -21,7 +25,6 @@
   }
 
   .homeLink {
-    flex: 1;
     color: #fff;
     text-decoration: none;
   }

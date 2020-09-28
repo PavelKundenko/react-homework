@@ -1,5 +1,8 @@
 import MoviesTypes from './movies.types';
 import { changeRating, changeLikes, sortMoviesByProperty, editMovie, deleteMovie } from './movies.utils';
+import { languageShortages, localStorageObjects } from '../../constants';
+
+const localization = JSON.parse(localStorage.getItem(localStorageObjects.LOCALIZATION)) ?? {};
 
 const INITIAL_STATE = {
   actors: null,
@@ -10,7 +13,9 @@ const INITIAL_STATE = {
   sortByLikesAscending: true,
   sortByRatingAscending: true,
   isMoviesDataLoading: false,
-  activeMovieData: null
+  activeMovieData: null,
+  currentLocalization: localization.currentLocalization ?? languageShortages.ENGLISH,
+  nextLocalization: localization.nextLocalization ?? languageShortages.UKRAINIAN,
 };
 
 export const moviesReducer = (state = INITIAL_STATE, action) => {
@@ -109,13 +114,21 @@ export const moviesReducer = (state = INITIAL_STATE, action) => {
     case MoviesTypes.ACTIVE_MOVIE_UPDATED:
       return {
         ...state,
-        activeMovieData: action.payload.movieData
+        activeMovieData: action.payload.movieData,
+        isMoviesDataLoading: false,
       };
 
     case MoviesTypes.ACTORS_DATA_LOADED:
       return {
         ...state,
         actors: action.payload.actorsData
+      };
+
+    case MoviesTypes.CHANGE_LOCALIZATION:
+      return {
+        ...state,
+        nextLocalization: state.currentLocalization,
+        currentLocalization: action.payload.newValue,
       };
 
     default:

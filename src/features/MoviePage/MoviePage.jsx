@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom';
 import Rating from '../../components/Rating/Rating';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import Spinner from '../../components/Spinner/Spinner';
+import WithTranslation from '../../hocs/WithTranslation/WithTranslation';
 import { fetchDeleteMovie, fetchMovieById, fetchActors } from '../../redux/movies/movies.async.actions';
 import { actorsDataSelector, activeMovieDataSelector } from '../../redux/movies/movies.selectors';
 import { propTypesShapes } from '../../constants';
 import styles from './MoviePage.module.scss';
-
 
 class MoviePage extends Component {
   componentDidMount = () => {
@@ -45,7 +45,7 @@ class MoviePage extends Component {
   };
 
   render() {
-    const { activeMovieData, history, actorsData } = this.props;
+    const { activeMovieData, history, actorsData, localizationData } = this.props;
 
     if (!activeMovieData || !actorsData) {
       return <Spinner/>
@@ -57,20 +57,32 @@ class MoviePage extends Component {
           <div className={styles.movieInfoTopbar}>
             <h1>{title}</h1>
             <div>
-              <CustomButton value='Edit' clickHandler={() => history.push(`/edit-movie/${id}`)} />
-              <CustomButton value='Delete' clickHandler={() => this.deleteMovieHandler(id)} />
+              <CustomButton
+                value={localizationData.buttonEdit}
+                clickHandler={() => history.push(`/edit-movie/${id}`)} />
+              <CustomButton
+                value={localizationData.buttonDelete}
+                clickHandler={() => this.deleteMovieHandler(id)} />
             </div>
           </div>
           <div className={`${styles.movieInfoContainer} row`}>
             <img className={`${styles.moviePoster} col-md-5`} src={posterUrl} alt='Movie poster' />
             <ul className={`${styles.movieInfo} col-md-7`}>
-              <li className={styles.movieInfo__listItem}>Likes: {likes}</li>
+              <li className={styles.movieInfo__listItem}>
+                {localizationData.likes}: {likes}
+              </li>
               <li className={styles.movieInfo__listItem}><Rating rate={stars} changeStarsHandler={() => false} /></li>
-              <li className={styles.movieInfo__listItem}>Director: <i>{director}</i></li>
-              <li className={styles.movieInfo__listItem}>Actors: <i>{ this.getActorsLinks(actors, actorsData) }</i></li>
-              <li className={styles.movieInfo__listItem}>Genres: <i>{ genres.join(', ') }</i></li>
-              <li className={styles.movieInfo__listItem}>Description:
-                <p>{ description }</p>
+              <li className={styles.movieInfo__listItem}>
+                {localizationData.director}: <i>{director}</i>
+              </li>
+              <li className={styles.movieInfo__listItem}>
+                {localizationData.actors}: <i>{ this.getActorsLinks(actors, actorsData) }</i>
+              </li>
+              <li className={styles.movieInfo__listItem}>
+                {localizationData.genres}: <i>{ genres.join(', ') }</i>
+              </li>
+              <li className={styles.movieInfo__listItem}>
+                {localizationData.description} <p>{description}</p>
               </li>
             </ul>
           </div>
@@ -96,7 +108,10 @@ MoviePage.propTypes = {
   actorsData: PropTypes.arrayOf(propTypesShapes.ACTOR),
   fetchDeleteMovie: PropTypes.func.isRequired,
   fetchMovieById: PropTypes.func.isRequired,
-  fetchActors: PropTypes.func.isRequired
+  fetchActors: PropTypes.func.isRequired,
+  localizationData: PropTypes.shape(propTypesShapes.LOCALIZATION_DATA)
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);
+const withConnect = connect(mapStateToProps, mapDispatchToProps)(MoviePage);
+
+export default WithTranslation(withConnect, MoviePage.name);

@@ -84,3 +84,10 @@ export const actorsDataLoaded = (actorsData) => ({
     actorsData
   }
 });
+
+export const changeLocalization = (newValue) => ({
+  type: MoviesTypes.CHANGE_LOCALIZATION,
+  payload: {
+    newValue
+  }
+});

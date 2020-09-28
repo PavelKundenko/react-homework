@@ -12,11 +12,11 @@
     color: #fff;
     border: none;
     border-radius: 5px;
-  }
 
-  .buttonInverted {
-    background-color: #fff;
-    color: #343A40;
+    &.inverted {
+      background-color: #fff;
+      color: #343A40;
+    }
   }
 }
 
