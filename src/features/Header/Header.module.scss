@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #343A40;
+  padding: 15px 30px;
+  margin-bottom: 30px;
+  color: #fff;
+
+  .headerTitle {
+    flex: 1;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+
+  .userContainer {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .homeLink {
+    flex: 1;
+    color: #fff;
+    text-decoration: none;
+  }
+}

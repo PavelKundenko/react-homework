@@ -16,6 +16,11 @@
     cursor: pointer;
     transition: all 0.2s;
 
+    .link {
+      text-decoration: none;
+      color: inherit;
+    }
+
     &:hover {
       text-shadow: 1px 1px 10px rgba(0,123,255, 0.5);
       text-decoration: underline;

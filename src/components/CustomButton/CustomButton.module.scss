@@ -5,12 +5,18 @@
   .button {
     cursor: pointer;
     text-transform: uppercase;
+    font-weight: 500;
     padding: 10px 15px;
     outline: none;
     background-color: #343A40;
     color: #fff;
     border: none;
     border-radius: 5px;
+  }
+
+  .buttonInverted {
+    background-color: #fff;
+    color: #343A40;
   }
 }
 

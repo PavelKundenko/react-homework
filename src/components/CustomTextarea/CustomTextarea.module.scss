@@ -1,29 +1,25 @@
-.inputContainer {
-  width: 100%;
+.textareaContainer {
   margin: 10px 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-
-  .input {
-    width: 100%;
-    padding: 10px 15px;
-    font-size: 18px;
-    border: 1px solid #343A40;
-    border-radius: 5px;
-
-    &:focus {
-      outline: none;
-    }
-  }
 
   .label {
     font-size: 20px;
     margin-right: 20px;
   }
 
-  .input.withLabel {
+  .textarea {
     width: 80%;
+    padding: 10px 15px;
+    font-size: 18px;
+    border: 1px solid #343A40;
+    border-radius: 5px;
+    resize: vertical;
+    overflow-y: hidden;
+    &:focus {
+      outline: none;
+    }
   }
 }
 

@@ -2,11 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { movie } from '../../../PropTypesShapes';
+import { propTypesShapes } from '../../../constants';
 import MovieCard from './MovieCard/MovieCard';
-import { filteredMoviesSelector } from '../../../redux/homepage/homepage.selectors';
+import { filteredMoviesSelector } from '../../../redux/movies/movies.selectors';
 import styles from './MoviesGallery.module.scss';
-
 
 const MoviesGallery = ({ filteredMovies }) => (
   <div className={styles.cardContainer}>
@@ -23,11 +22,11 @@ const MoviesGallery = ({ filteredMovies }) => (
 );
 
 const mapStateToProps = (state) => ({
-  filteredMovies: filteredMoviesSelector(state),
+  filteredMovies: filteredMoviesSelector(state)
 });
 
 MoviesGallery.propTypes = {
- filteredMovies: PropTypes.arrayOf(movie)
+ filteredMovies: PropTypes.arrayOf(propTypesShapes.MOVIE)
 };
 
 export default connect(mapStateToProps)(MoviesGallery);

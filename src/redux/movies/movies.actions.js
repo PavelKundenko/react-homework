@@ -1,14 +1,7 @@
-import HomepageTypes from './homepage.types';
-
-export const setActiveMovie = (movieId) => ({
-  type: HomepageTypes.SET_ACTIVE_MOVIE,
-  payload: {
-    movieId
-  }
-});
+import MoviesTypes from './movies.types';
 
 export const addLike = (movieId) => ({
-  type: HomepageTypes.ADD_LIKE,
+  type: MoviesTypes.ADD_LIKE,
   payload: {
     movieId,
     likesAmount: 1
@@ -16,7 +9,7 @@ export const addLike = (movieId) => ({
 });
 
 export const removeLike = (movieId) => ({
-  type: HomepageTypes.REMOVE_LIKE,
+  type: MoviesTypes.REMOVE_LIKE,
   payload: {
     movieId,
     likesAmount: -1
@@ -24,7 +17,7 @@ export const removeLike = (movieId) => ({
 });
 
 export const changeMovieRating = (movieId, newRating) => ({
-  type: HomepageTypes.CHANGE_MOVIE_RATING,
+  type: MoviesTypes.CHANGE_MOVIE_RATING,
   payload: {
     movieId,
     newRating
@@ -32,26 +25,41 @@ export const changeMovieRating = (movieId, newRating) => ({
 });
 
 export const searchValueChanged = (newValue) => ({
-  type: HomepageTypes.SEARCH_VALUE_CHANGED,
+  type: MoviesTypes.SEARCH_VALUE_CHANGED,
   payload: {
     newValue
   }
 });
 
 export const sortByLikes = () => ({
-  type: HomepageTypes.SORT_BY_LIKES,
+  type: MoviesTypes.SORT_BY_LIKES,
   payload: {
     comparedParam: 'likes'
   }
 });
 
 export const sortByRating = () => ({
-  type: HomepageTypes.SORT_BY_RATING,
+  type: MoviesTypes.SORT_BY_RATING,
   payload: {
     comparedParam: 'stars'
   }
 });
 
 export const resetSorting = () => ({
-  type: HomepageTypes.RESET_SORTING
+  type: MoviesTypes.RESET_SORTING
+});
+
+export const editMovie = (editableMovieId, editableMovieData) => ({
+  type: MoviesTypes.EDIT_MOVIE,
+  payload: {
+    editableMovieId,
+    editableMovieData
+  }
+});
+
+export const deleteMovie = (movieId) => ({
+  type: MoviesTypes.DELETE_MOVIE,
+  payload: {
+    movieId
+  }
 });

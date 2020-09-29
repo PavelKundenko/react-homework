@@ -1,0 +1,30 @@
+.movieInfoTopbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.movieInfoContainer {
+  .movieInfo {
+    line-height: 1.5;
+    list-style: none;
+    padding-left: 10px;
+    .movieInfo__listItem {
+      margin-top: 10px;
+      .link {
+        color: inherit;
+      }
+    }
+    .moviePoster {
+      max-height: 600px;
+      width: 50%;
+    }
+  }
+}
+
+.movieDescription {
+  margin-top: 20px;
+}
+
+
+
