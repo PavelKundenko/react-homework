@@ -1,11 +1,12 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar as SolidStar} from "@fortawesome/free-solid-svg-icons";
-import { faStar as EmptyStar } from "@fortawesome/free-regular-svg-icons";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar as SolidStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar as EmptyStar } from '@fortawesome/free-regular-svg-icons';
 
 import styles from './Rating.module.scss';
 
-const Rating = ({ movieId, rate, changeStarsHandler }) => {
+const Rating = ({ movieId, rate, changeRating }) => {
   const starTypes = {
     SOLID: 'solid',
     EMPTY: 'empty'
@@ -20,8 +21,7 @@ const Rating = ({ movieId, rate, changeStarsHandler }) => {
           className={styles.star}
           key={index}
           icon={SolidStar}
-          onClick={() => changeStarsHandler(movieId, index + 1)}
-        />
+          onClick={() => changeRating(movieId, index + 1)} />
       )
     } else {
       return (
@@ -29,8 +29,7 @@ const Rating = ({ movieId, rate, changeStarsHandler }) => {
           className={styles.star}
           key={index}
           icon={EmptyStar}
-          onClick={() => changeStarsHandler(movieId, index + 1)}
-        />
+          onClick={() => changeRating(movieId, index + 1)} />
       );
     }
   });
@@ -40,6 +39,16 @@ const Rating = ({ movieId, rate, changeStarsHandler }) => {
       { stars }
     </div>
   )
+};
+
+Rating.propTypes = {
+  movieId: PropTypes.number,
+  rate: PropTypes.number.isRequired,
+  changeRating: PropTypes.func
+};
+
+Rating.defaultProps = {
+  changeRating: () => false
 };
 
 export default Rating;
