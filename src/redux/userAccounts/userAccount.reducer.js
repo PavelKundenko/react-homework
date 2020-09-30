@@ -6,7 +6,7 @@ const currentUser = JSON.parse(localStorage.getItem(localStorageObjects.CURRENT_
 const INITIAL_STATE = {
   login: currentUser.login ?? '',
   password: currentUser.password ?? '',
-  isLogged: !!JSON.parse(localStorage.getItem(localStorageObjects.CURRENT_USER))
+  isLogged: Boolean(JSON.parse(localStorage.getItem(localStorageObjects.CURRENT_USER)))
 };
 
 export const userAccountReducer = (state = INITIAL_STATE, action) => {

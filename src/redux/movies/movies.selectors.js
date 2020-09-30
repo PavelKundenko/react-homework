@@ -6,3 +6,5 @@ export const filteredMoviesSelector = (state) => state.moviesReducer.movies
 export const isMoviesLoadingSelector = (state) => state.moviesReducer.isMoviesDataLoading;
 
 export const activeMovieDataSelector = (state) => state.moviesReducer.activeMovieData;
+
+export const errorMessageSelector = (state) => state.moviesReducer.errorMessage;

@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 
+import MoviesTypes from './redux/movies/movies.types';
+
 export const propTypesShapes = {
   MOVIE: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -29,4 +31,10 @@ export const propTypesShapes = {
 export const localStorageObjects = {
   USERS: 'users',
   CURRENT_USER: 'currentUser'
+};
+
+export const errorsMessages = {
+  [MoviesTypes.MOVIES_LOADING_FAILED]: 'Movies loading failed.',
+  [MoviesTypes.ACTORS_LOADING_FAILED]: 'Actors loading failed.',
+  [MoviesTypes.SHOW_ERROR_MESSAGE]: 'Server error occurred.'
 };

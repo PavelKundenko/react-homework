@@ -2,49 +2,71 @@ import Api from '../../helpers/Api';
 import {
   activeMovieDataUpdated,
   actorsDataLoaded,
+  actorsLoadingFailed,
+  actorsLoadingStart,
   changeLikes,
   changeMovieRating,
   deleteMovie,
   editMovie,
   moviesLoaded,
   moviesLoadingFailed,
-  moviesLoadingStart
+  moviesLoadingStart,
+  showErrorMessage
 } from './movies.actions';
 
 export const addLikeAsync = (movieId, movieData) => async (dispatch) => {
-  Api.updateMovieData(movieId, movieData).then(() => dispatch(changeLikes(movieId, movieData)))
+  try {
+    const { status } = await Api.updateMovieData(movieId, movieData);
+
+    status === 200 ? dispatch(changeLikes(movieId, movieData)) : dispatch(showErrorMessage());
+  } catch {
+    dispatch(showErrorMessage());
+  }
 };
 
 export const changeRatingAsync = (movieId, movieData, newRating) => async (dispatch) => {
-  Api.updateMovieData(movieId, movieData).then(() => dispatch(changeMovieRating(movieId, newRating)))
+  try {
+    const { status } = await Api.updateMovieData(movieId, movieData);
+
+    status === 200 ? dispatch(changeMovieRating(movieId, newRating)) : dispatch(showErrorMessage());
+  } catch {
+    dispatch(showErrorMessage());
+  }
 };
 
 export const fetchUpdateMovie = (movieId, movieData) => async (dispatch) => {
   dispatch(moviesLoadingStart());
   try {
-    const { data } = await Api.updateMovieData(movieId, movieData);
+    const { data, status } = await Api.updateMovieData(movieId, movieData);
 
-    dispatch(editMovie(movieId, data));
-    dispatch(activeMovieDataUpdated(data))
+    if (status === 200) {
+      dispatch(editMovie(movieId, data));
+      dispatch(activeMovieDataUpdated(data));
+    } else {
+     dispatch(moviesLoadingFailed());
+    }
   } catch {
     dispatch(moviesLoadingFailed())
   }
 };
 
-export const fetchDeleteMovie = (movieId) => async (dispatch) =>{
+export const fetchDeleteMovie = (movieId) => async (dispatch) => {
   dispatch(moviesLoadingStart());
+  try {
+    const { status } = Api.deleteMovie(movieId);
 
-  Api.deleteMovie(movieId)
-    .then(() => dispatch(deleteMovie(movieId)))
-    .catch(() => dispatch(moviesLoadingFailed()))
+    status === 200 ? dispatch(deleteMovie(movieId)) : dispatch(moviesLoadingFailed());
+  } catch {
+    dispatch(moviesLoadingFailed());
+  }
 };
 
 export const fetchMovies = () => async (dispatch) => {
   dispatch(moviesLoadingStart());
   try {
-    const { data } = await Api.getMovies();
+    const { data, status } = await Api.getMovies();
 
-    dispatch(moviesLoaded(data))
+    status === 200 ? dispatch(moviesLoaded(data)) : dispatch(moviesLoadingFailed());
   } catch {
     dispatch(moviesLoadingFailed());
   }
@@ -53,16 +75,22 @@ export const fetchMovies = () => async (dispatch) => {
 export const fetchMovieById = (movieId) => async (dispatch) => {
   dispatch(moviesLoadingStart());
   try {
-    const { data } = await Api.getMovieById(movieId);
+    const { data, status } = await Api.getMovieById(movieId);
 
-    dispatch(activeMovieDataUpdated(data))
+    status === 200 ? dispatch(activeMovieDataUpdated(data)) : dispatch(moviesLoadingFailed());
   } catch {
     dispatch(moviesLoadingFailed());
   }
 };
 
 export const fetchActors = () => async (dispatch) => {
-  Api.getActors().then((response) => {
-    dispatch(actorsDataLoaded(response.data))
-  });
+  dispatch(actorsLoadingStart());
+
+  try {
+    const { data, status } = await Api.getActors();
+
+    status === 200 ? dispatch(actorsDataLoaded(data)) : dispatch(actorsLoadingFailed());
+  } catch {
+    dispatch(actorsLoadingFailed());
+  }
 };

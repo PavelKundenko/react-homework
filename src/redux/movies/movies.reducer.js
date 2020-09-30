@@ -1,5 +1,6 @@
 import MoviesTypes from './movies.types';
 import { changeRating, changeLikes, sortMoviesByProperty, editMovie, deleteMovie } from './movies.utils';
+import { errorsMessages } from '../../constants';
 
 const INITIAL_STATE = {
   actors: null,
@@ -10,7 +11,9 @@ const INITIAL_STATE = {
   sortByLikesAscending: true,
   sortByRatingAscending: true,
   isMoviesDataLoading: false,
-  activeMovieData: null
+  activeMovieData: null,
+  isActorsDataLoading: false,
+  errorMessage: ''
 };
 
 export const moviesReducer = (state = INITIAL_STATE, action) => {
@@ -96,7 +99,8 @@ export const moviesReducer = (state = INITIAL_STATE, action) => {
     case MoviesTypes.MOVIES_LOADING_FAILED:
       return {
         ...state,
-        isMoviesDataLoading: false
+        isMoviesDataLoading: false,
+        errorMessage: errorsMessages[MoviesTypes.MOVIES_LOADING_FAILED],
       };
 
     case MoviesTypes.MOVIES_UPDATED:
@@ -112,10 +116,35 @@ export const moviesReducer = (state = INITIAL_STATE, action) => {
         activeMovieData: action.payload.movieData
       };
 
+    case MoviesTypes.ACTORS_LOADING_START:
+      return {
+        ...state,
+        isActorsDataLoading: true
+      };
+
+    case MoviesTypes.ACTORS_LOADING_FAILED:
+      return {
+        ...state,
+        isActorsDataLoading: false,
+        errorMessage: errorsMessages[MoviesTypes.ACTORS_LOADING_FAILED]
+      };
+
     case MoviesTypes.ACTORS_DATA_LOADED:
       return {
         ...state,
         actors: action.payload.actorsData
+      };
+
+    case MoviesTypes.SHOW_ERROR_MESSAGE:
+      return {
+        ...state,
+        errorMessage: errorsMessages[MoviesTypes.SHOW_ERROR_MESSAGE]
+      };
+
+    case MoviesTypes.HIDE_ERROR_MESSAGE:
+      return {
+        ...state,
+        errorMessage: ''
       };
 
     default:

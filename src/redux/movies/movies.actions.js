@@ -84,3 +84,19 @@ export const actorsDataLoaded = (actorsData) => ({
     actorsData
   }
 });
+
+export const actorsLoadingFailed = () => ({
+  type: MoviesTypes.ACTORS_LOADING_FAILED
+});
+
+export const actorsLoadingStart = () => ({
+  type: MoviesTypes.ACTORS_LOADING_START
+});
+
+export const showErrorMessage = () => ({
+  type: MoviesTypes.SHOW_ERROR_MESSAGE
+});
+
+export const hideErrorMessage = () => ({
+  type: MoviesTypes.HIDE_ERROR_MESSAGE
+});

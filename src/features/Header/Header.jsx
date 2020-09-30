@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 import CustomButton from '../../components/CustomButton/CustomButton';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { logOut } from '../../redux/userAccounts/userAccount.actions';
 import { isLoggedSelector, userDataSelector } from '../../redux/userAccounts/userAccount.selectors';
+import { errorMessageSelector } from '../../redux/movies/movies.selectors';
 import { propTypesShapes } from '../../constants';
 import styles from './Header.module.scss';
 
-const Header = ({ userData, isLogged, logOut }) => {
+const Header = ({ userData, isLogged, logOut, errorMessage }) => {
   const logOutHandler = () => {
     localStorage.removeItem('currentUser');
 
@@ -28,14 +30,15 @@ const Header = ({ userData, isLogged, logOut }) => {
           </div>
         )
       }
-
+      { errorMessage && <ErrorMessage errorMessage={errorMessage} /> }
     </header>
   );
 };
 
 const mapStateToProps = (state) => ({
   userData: userDataSelector(state),
-  isLogged: isLoggedSelector(state)
+  isLogged: isLoggedSelector(state),
+  errorMessage: errorMessageSelector(state),
 });
 
 const mapDispatchToProps = {
