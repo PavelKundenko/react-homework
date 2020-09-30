@@ -1,32 +1,57 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { propTypesShapes } from '../../../constants';
 import MovieCard from './MovieCard/MovieCard';
-import { filteredMoviesSelector } from '../../../redux/movies/movies.selectors';
+import Spinner from '../../../components/Spinner/Spinner';
+import { fetchMovies } from '../../../redux/movies/movies.async.actions';
+import { filteredMoviesSelector, isMoviesLoadingSelector } from '../../../redux/movies/movies.selectors';
 import styles from './MoviesGallery.module.scss';
 
-const MoviesGallery = ({ filteredMovies }) => (
-  <div className={styles.cardContainer}>
-    {
-      filteredMovies.length ? (
-        filteredMovies.map((movie) => (
-            <MovieCard key={movie.id} {...movie} />
-          ))
-        ) : (
-          <h3>There are no such movies there</h3>
-        )
+class MoviesGallery extends Component{
+  componentDidMount = () => {
+    const { fetchMovies } = this.props;
+
+    fetchMovies()
+  };
+
+  render() {
+    const { filteredMovies, isMoviesDataLoading } = this.props;
+
+    if (isMoviesDataLoading) {
+      return <Spinner />;
+    } else {
+      return (
+        <div className={styles.cardContainer}>
+          {
+            filteredMovies.length ? (
+              filteredMovies.map((movie) => (
+                <MovieCard key={movie.id} movieData={movie} />
+              ))
+            ) : (
+              <h3>There are no such movies there</h3>
+            )
+          }
+        </div>
+      );
     }
-  </div>
-);
+  }
+}
 
 const mapStateToProps = (state) => ({
-  filteredMovies: filteredMoviesSelector(state)
+  filteredMovies: filteredMoviesSelector(state),
+  isMoviesDataLoading: isMoviesLoadingSelector(state)
 });
 
-MoviesGallery.propTypes = {
- filteredMovies: PropTypes.arrayOf(propTypesShapes.MOVIE)
+const mapDispatchToProps = {
+  fetchMovies
 };
 
-export default connect(mapStateToProps)(MoviesGallery);
+MoviesGallery.propTypes = {
+  filteredMovies: PropTypes.arrayOf(propTypesShapes.MOVIE),
+  isMoviesDataLoading: PropTypes.bool.isRequired,
+  fetchMovies: PropTypes.func.isRequired
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoviesGallery);

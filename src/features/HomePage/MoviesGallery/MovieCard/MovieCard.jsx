@@ -6,42 +6,64 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
 import Rating from '../../../../components/Rating/Rating';
-import { addLike, changeMovieRating, removeLike } from '../../../../redux/movies/movies.actions';
+import { addLikeAsync, changeRatingAsync } from '../../../../redux/movies/movies.async.actions';
+import { propTypesShapes } from '../../../../constants';
 import styles from './MovieCard.module.scss';
 
-const MovieCard = ({ id, title, posterUrl, likes, stars, addLike, removeLike, changeMovieRating }) => (
-  <div className={`${styles.card} col-lg-3 col-sm-5`}>
-    <div>
-      <img className={styles.moviePoster} src={posterUrl} alt="Movie poster"/>
-      <h3 className={styles.cardTitle}><Link className={styles.link} to={`/movie/${id}`}>{title}</Link></h3>
-    </div>
-    <div className={styles.assessmentContainer}>
+const MovieCard = ({ movieData, addLikeAsync, changeRatingAsync }) => {
+  const { id, title, posterUrl, likes, stars } = movieData;
+
+  const changeLikesHandler = (likesAmount) => {
+    const updatedData = {
+      ...movieData,
+      likes: movieData.likes + likesAmount
+    };
+
+    addLikeAsync(id, updatedData);
+  };
+
+  const changeRatingHandler = (movieId, newRating) => {
+    const updatedData = {
+      ...movieData,
+      stars: newRating
+    };
+
+    changeRatingAsync(id, updatedData, newRating)
+  };
+
+  return (
+    <div className={`${styles.card} col-lg-3 col-sm-5`}>
       <div>
-        {likes}
-        <FontAwesomeIcon
-          onClick={() => addLike(id)}
-          className={`${styles.icon} ${styles.like}`}
-          icon={faThumbsUp} />
-        <FontAwesomeIcon
-          onClick={() => removeLike(id)}
-          className={`${styles.icon} ${styles.dislike}`}
-          icon={faThumbsDown} />
+        <img className={styles.moviePoster} src={posterUrl} alt="Movie poster"/>
+        <h3 className={styles.cardTitle}><Link className={styles.link} to={`/movie/${id}`}>{title}</Link></h3>
       </div>
-      <Rating movieId={id} rate={stars} changeRating={changeMovieRating} />
+      <div className={styles.assessmentContainer}>
+        <div>
+          {likes}
+          <FontAwesomeIcon
+            onClick={() => changeLikesHandler(1)}
+            className={`${styles.icon} ${styles.like}`}
+            icon={faThumbsUp} />
+          <FontAwesomeIcon
+            onClick={() => changeLikesHandler(-1)}
+            className={`${styles.icon} ${styles.dislike}`}
+            icon={faThumbsDown} />
+        </div>
+        <Rating movieId={id} rate={stars} changeRating={changeRatingHandler} />
+      </div>
     </div>
-  </div>
-);
+  )
+};
 
 const mapDispatchToProps = {
-  addLike,
-  removeLike,
-  changeMovieRating
+  addLikeAsync,
+  changeRatingAsync
 };
 
 MovieCard.propTypes = {
-  addLike: PropTypes.func.isRequired,
-  removeLike: PropTypes.func.isRequired,
-  changeMovieRating: PropTypes.func.isRequired
+  movieData: PropTypes.shape(propTypesShapes.MOVIE),
+  addLikeAsync: PropTypes.func.isRequired,
+  changeRatingAsync: PropTypes.func.isRequired
 };
 
 export default connect(null, mapDispatchToProps)(MovieCard);

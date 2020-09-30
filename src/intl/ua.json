@@ -1,0 +1,54 @@
+{
+  "Header": {
+    "headline": "Кіно",
+    "homepageLink": "Домашня сторінка",
+    "userLabel": "Користувач",
+    "logoutButton": "Вийти"
+  },
+  "MoviesSortingForm": {
+    "headline": "Сортувати фільми",
+    "buttonByLikes": "По лайкам",
+    "buttonByRating": "По рейтингу",
+    "buttonReset": "Cкинути",
+    "searchFieldPlaceholder": "Введіть назву фільму"
+  },
+  "MoviePage": {
+    "buttonEdit": "Редагувати",
+    "buttonDelete": "Видалити",
+    "likes": "Вподобайки",
+    "director": "Режисер",
+    "actors": "Актори",
+    "genres": "Жанри",
+    "description": "Сюжет"
+  },
+  "EditMoviePage": {
+    "titleLabel": "Заголовок",
+    "titlePlaceholder": "заголовок",
+    "posterUrlLabel": "Постер",
+    "posterUrlPlaceholder": "url",
+    "directorLabel": "Режисер",
+    "directorPlaceholder": "Режисер",
+    "genresLabel": "Жанри",
+    "genresPlaceholder": "введіть жанри, розділяючи комами",
+    "descriptionLabel": "Сюжет",
+    "descriptionPlaceholder": "сюжет",
+    "buttonSubmit": "Підтвердити",
+    "buttonGoBack": "Повернутися"
+  },
+  "SignInPage": {
+    "headline": "Увійдіть, будь ласка",
+    "loginPlaceholder": "Введіть логін",
+    "passwordPlaceholder": "Введіть пароль",
+    "buttonSubmit": "Увійти",
+    "labelSignUp": "Не маєте аккаунту?",
+    "linkSignUp": "Зареєструватись"
+  },
+  "SignUpPage": {
+    "headline": "Зареєструйтеся, будь ласка",
+    "loginPlaceholder": "Введіть логін",
+    "passwordPlaceholder": "Введіть пароль",
+    "buttonSubmit": "Зареєструватися",
+    "labelSignIn": "Вже маєте аккаунт?",
+    "linkSignIn": "Увійти"
+  }
+}

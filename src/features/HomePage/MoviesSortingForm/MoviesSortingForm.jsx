@@ -4,26 +4,35 @@ import PropTypes from 'prop-types';
 
 import CustomButton from '../../../components/CustomButton/CustomButton';
 import CustomInput from '../../../components/CustomInput/CustomInput';
+import WithTranslation from '../../../hocs/WithTranslation/WithTranslation';
 import { searchValueChanged, sortByLikes, sortByRating, resetSorting } from '../../../redux/movies/movies.actions';
+import { propTypesShapes } from '../../../constants';
 import styles from './MoviesSortingForm.module.scss';
 
-const MoviesSortingForm = ({ searchFieldValueChanged, sortByLikes, sortByRating, resetSorting }) => {
+const MoviesSortingForm = ({ searchFieldValueChanged, sortByLikes, sortByRating, resetSorting, localizationData }) => {
   return (
     <form className={styles.sortMoviesForm}>
       <div>
-        <h2>Sort movies</h2>
-        <CustomButton value="By likes" clickHandler={sortByLikes} />
-        <CustomButton value="By rating" clickHandler={sortByRating} />
-        <CustomButton value="Reset" clickHandler={resetSorting} />
+        <h2>{localizationData.headline}</h2>
+        <CustomButton value={localizationData.buttonByLikes} clickHandler={sortByLikes} />
+        <CustomButton value={localizationData.buttonByRating} clickHandler={sortByRating} />
+        <CustomButton value={localizationData.buttonReset} clickHandler={resetSorting} />
       </div>
       <div className='col-lg-5 col-md-7 col-sm-10'>
         <CustomInput
           type="text"
-          changeHandler={searchFieldValueChanged}
-          placeholder="Enter movie title" />
+          onChange={searchFieldValueChanged}
+          placeholder={localizationData.searchFieldPlaceholder} />
       </div>
     </form>
   )
+};
+
+MoviesSortingForm.propTypes = {
+  searchFieldValueChanged: PropTypes.func.isRequired,
+  sortByLikes: PropTypes.func.isRequired,
+  sortByRating: PropTypes.func.isRequired,
+  resetSorting: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
@@ -33,11 +42,6 @@ const mapDispatchToProps = {
   resetSorting
 };
 
-MoviesSortingForm.propTypes = {
-  searchFieldValueChanged: PropTypes.func.isRequired,
-  sortByLikes: PropTypes.func.isRequired,
-  sortByRating: PropTypes.func.isRequired,
-  resetSorting: PropTypes.func.isRequired
-};
+const withConnect = connect(null, mapDispatchToProps)(MoviesSortingForm);
 
-export default connect(null, mapDispatchToProps)(MoviesSortingForm);
+export default WithTranslation(withConnect, MoviesSortingForm.name);

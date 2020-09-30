@@ -1,0 +1,54 @@
+{
+  "Header": {
+    "headline": "Movies",
+    "homepageLink": "Home",
+    "userLabel": "User",
+    "logoutButton": "Log out"
+  },
+  "MoviesSortingForm": {
+    "headline": "Sort movies",
+    "buttonByLikes": "By likes",
+    "buttonByRating": "By rating",
+    "buttonReset": "Reset",
+    "searchFieldPlaceholder": "Enter movie title"
+  },
+  "MoviePage": {
+    "buttonEdit": "Edit",
+    "buttonDelete": "Delete",
+    "likes": "Likes",
+    "director": "Director",
+    "actors": "Actors",
+    "genres": "Genres",
+    "description": "Description"
+  },
+  "EditMoviePage": {
+    "titleLabel": "Title",
+    "titlePlaceholder": "title",
+    "posterUrlLabel": "Poster URL",
+    "posterUrlPlaceholder": "url",
+    "directorLabel": "Director",
+    "directorPlaceholder": "director",
+    "genresLabel": "Genres",
+    "genresPlaceholder": "type genres divided by any separator, except whitespace",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "description",
+    "buttonSubmit": "Submit",
+    "buttonGoBack": "Go back"
+  },
+  "SignInPage": {
+    "headline": "Please log in",
+    "loginPlaceholder": "Enter login",
+    "passwordPlaceholder": "Enter password",
+    "buttonSubmit": "Sign in",
+    "labelSignUp": "Don't have an account?",
+    "linkSignUp": "Sign Up"
+  },
+  "SignUpPage": {
+    "headline": "Please register",
+    "loginPlaceholder": "Enter login",
+    "passwordPlaceholder": "Enter password",
+    "buttonSubmit": "Sign Up",
+    "labelSignIn": "Do you have registered account?",
+    "linkSignIn": "Sign In"
+  }
+}

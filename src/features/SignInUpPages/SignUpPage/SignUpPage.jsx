@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom'
 
 import CustomInput from '../../../components/CustomInput/CustomInput'
 import CustomButton from '../../../components/CustomButton/CustomButton'
+import WithTranslation from '../../../hocs/WithTranslation/WithTranslation';
 import { loginChanged, passwordChanged, logIn } from '../../../redux/userAccounts/userAccount.actions'
 import { userDataSelector } from '../../../redux/userAccounts/userAccount.selectors'
 import { localStorageObjects, propTypesShapes } from '../../../constants';
+import Api  from '../../../helpers/Api'
 import styles from '../SignInUpPage.module.scss';
 
-
-const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData }) => {
+const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData, localizationData }) => {
   const [errors, updateErrors] = useState([]);
 
   const validateForm = (formData) => {
@@ -36,21 +37,15 @@ const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData })
     if (validationErrors.length) {
       updateErrors(() => [...validationErrors]);
     } else {
-      const users = JSON.parse(localStorage.getItem(localStorageObjects.USERS)) || [];
+      Api.register(userData)
+        .then((response) => {
+          localStorage.setItem(localStorageObjects.CURRENT_USER, JSON.stringify(response.data));
 
-      if (users.find((user) => user.login === userData.login)) {
-        updateErrors((prevState) => [...prevState, 'This login is already registered. '])
-      } else {
-        logIn();
+          logIn();
 
-        users.push(userData);
-
-        localStorage.setItem(localStorageObjects.USERS, JSON.stringify(users));
-
-        localStorage.setItem(localStorageObjects.CURRENT_USER, JSON.stringify(userData));
-
-        history.push('/home');
-      }
+          history.push('/home');
+        })
+        .catch(() => updateErrors(() => ['Request failed. Try again later.']))
     }
   };
 
@@ -58,28 +53,28 @@ const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData })
     <div className='container'>
       <div className='row justify-content-center'>
         <form className={`${styles.form} col-md-6`}>
-          <h2 className={styles.formTitle}>Please register</h2>
+          <h2 className={styles.formTitle}>{localizationData.headline}</h2>
           <div className={styles.formControl}>
             <CustomInput
               type='text'
-              placeholder='Enter login'
+              placeholder={localizationData.loginPlaceholder}
               required={true}
-              changeHandler={loginChanged}
+              onChange={loginChanged}
               value={userData.login} />
           </div>
           <div className={styles.formControl}>
             <CustomInput
               type='password'
-              placeholder='Enter password'
+              placeholder={localizationData.passwordPlaceholder}
               required={true}
-              changeHandler={passwordChanged}
+              onChange={passwordChanged}
               value={userData.password} />
           </div>
           <CustomButton
             type='submit'
-            value='Sign Up'
+            value={localizationData.buttonSubmit}
             clickHandler={submitHandler} />
-          <p>Do you have registered account? <Link to='/sign-in'>Sign In</Link></p>
+          <p>{localizationData.labelSignIn} <Link to='/sign-in'>{localizationData.linkSignIn}</Link></p>
           <p className={styles.errorContainer}>
             { errors }
           </p>
@@ -106,4 +101,6 @@ SignUpPage.propTypes = {
   logIn: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);
+const withConnect = connect(mapStateToProps, mapDispatchToProps)(SignUpPage);
+
+export default WithTranslation(withConnect, SignUpPage.name);

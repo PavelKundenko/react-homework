@@ -1,5 +1,10 @@
 import PropTypes from 'prop-types';
 
+export const languageShortages = {
+  ENGLISH: 'en',
+  UKRAINIAN: 'ua'
+};
+
 export const propTypesShapes = {
   MOVIE: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -24,9 +29,15 @@ export const propTypesShapes = {
     login: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired
   }).isRequired,
+
+  LOCALIZATION_DATA: PropTypes.shape({
+    [languageShortages.ENGLISH]: PropTypes.object,
+    [languageShortages.UKRAINIAN]: PropTypes.object
+  })
 };
 
 export const localStorageObjects = {
   USERS: 'users',
-  CURRENT_USER: 'currentUser'
+  CURRENT_USER: 'currentUser',
+  LOCALIZATION: 'localization'
 };
