@@ -1,3 +1,0 @@
-[submodule "movies_server"]
-	path = movies_server
-	url = https://github.com/Yuriy1988/movies_server.git
