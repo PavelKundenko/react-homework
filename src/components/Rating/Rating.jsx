@@ -11,7 +11,6 @@ const Rating = ({ movieId, rate, changeRating }) => {
     SOLID: 'solid',
     EMPTY: 'empty'
   };
-
   const rateStarTypes = new Array(rate).fill(starTypes.SOLID).concat(new Array(5 - rate).fill(starTypes.EMPTY));
 
   const stars = rateStarTypes.map((type, index) => {

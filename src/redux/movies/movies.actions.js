@@ -1,18 +1,10 @@
 import MoviesTypes from './movies.types';
 
-export const addLike = (movieId) => ({
-  type: MoviesTypes.ADD_LIKE,
+export const changeLikes = (movieId, updatedMovie) => ({
+  type: MoviesTypes.CHANGE_LIKES,
   payload: {
     movieId,
-    likesAmount: 1
-  }
-});
-
-export const removeLike = (movieId) => ({
-  type: MoviesTypes.REMOVE_LIKE,
-  payload: {
-    movieId,
-    likesAmount: -1
+    updatedMovie
   }
 });
 
@@ -62,4 +54,49 @@ export const deleteMovie = (movieId) => ({
   payload: {
     movieId
   }
+});
+
+export const moviesLoadingStart = () => ({
+  type: MoviesTypes.MOVIES_LOADING_START
+});
+
+export const moviesLoaded = (moviesData) => ({
+  type: MoviesTypes.MOVIES_LOADED,
+  payload: {
+    moviesData
+  }
+});
+
+export const moviesLoadingFailed = () => ({
+  type: MoviesTypes.MOVIES_LOADING_FAILED
+});
+
+export const activeMovieDataUpdated = (movieData) => ({
+  type: MoviesTypes.ACTIVE_MOVIE_UPDATED,
+  payload: {
+    movieData
+  }
+});
+
+export const actorsDataLoaded = (actorsData) => ({
+  type: MoviesTypes.ACTORS_DATA_LOADED,
+  payload: {
+    actorsData
+  }
+});
+
+export const actorsLoadingFailed = () => ({
+  type: MoviesTypes.ACTORS_LOADING_FAILED
+});
+
+export const actorsLoadingStart = () => ({
+  type: MoviesTypes.ACTORS_LOADING_START
+});
+
+export const showErrorMessage = () => ({
+  type: MoviesTypes.SHOW_ERROR_MESSAGE
+});
+
+export const hideErrorMessage = () => ({
+  type: MoviesTypes.HIDE_ERROR_MESSAGE
 });

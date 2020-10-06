@@ -1,21 +1,24 @@
-import { moviesData } from '../../movies.data';
-import { actorsData } from '../../actors.data';
 import MoviesTypes from './movies.types';
 import { changeRating, changeLikes, sortMoviesByProperty, editMovie, deleteMovie } from './movies.utils';
+import { errorsMessages } from '../../constants';
 
 const INITIAL_STATE = {
-  actors: [...actorsData],
-  movies: [...moviesData],
-  unsortedMovies: [...moviesData],
+  actors: null,
+  movies: [],
+  unsortedMovies: [],
   activeMovieId: null,
   searchFieldValue: '',
   sortByLikesAscending: true,
-  sortByRatingAscending: true
+  sortByRatingAscending: true,
+  isMoviesDataLoading: false,
+  activeMovieData: null,
+  isActorsDataLoading: false,
+  errorMessage: ''
 };
 
 export const moviesReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case MoviesTypes.ADD_LIKE:
+    case MoviesTypes.CHANGE_LIKES:
       return {
         ...state,
         movies: changeLikes(state.movies, action.payload)
@@ -76,6 +79,72 @@ export const moviesReducer = (state = INITIAL_STATE, action) => {
         ...state,
         movies: deleteMovie(state.movies, action.payload.movieId),
         unsortedMovies: deleteMovie(state.unsortedMovies, action.payload.movieId)
+      };
+
+    case MoviesTypes.MOVIES_LOADING_START:
+      return {
+        ...state,
+        isMoviesDataLoading: true
+      };
+
+    case MoviesTypes.MOVIES_LOADED:
+      return {
+        ...state,
+        isMoviesDataLoading: false,
+        movies: action.payload.moviesData,
+        unsortedMovies: action.payload.moviesData,
+        activeMovieData: null
+      };
+
+    case MoviesTypes.MOVIES_LOADING_FAILED:
+      return {
+        ...state,
+        isMoviesDataLoading: false,
+        errorMessage: errorsMessages[MoviesTypes.MOVIES_LOADING_FAILED],
+      };
+
+    case MoviesTypes.MOVIES_UPDATED:
+      return {
+        ...state,
+        isMoviesDataLoading: false,
+        activeMovieData: null
+      };
+
+    case MoviesTypes.ACTIVE_MOVIE_UPDATED:
+      return {
+        ...state,
+        activeMovieData: action.payload.movieData
+      };
+
+    case MoviesTypes.ACTORS_LOADING_START:
+      return {
+        ...state,
+        isActorsDataLoading: true
+      };
+
+    case MoviesTypes.ACTORS_LOADING_FAILED:
+      return {
+        ...state,
+        isActorsDataLoading: false,
+        errorMessage: errorsMessages[MoviesTypes.ACTORS_LOADING_FAILED]
+      };
+
+    case MoviesTypes.ACTORS_DATA_LOADED:
+      return {
+        ...state,
+        actors: action.payload.actorsData
+      };
+
+    case MoviesTypes.SHOW_ERROR_MESSAGE:
+      return {
+        ...state,
+        errorMessage: errorsMessages[MoviesTypes.SHOW_ERROR_MESSAGE]
+      };
+
+    case MoviesTypes.HIDE_ERROR_MESSAGE:
+      return {
+        ...state,
+        errorMessage: ''
       };
 
     default:

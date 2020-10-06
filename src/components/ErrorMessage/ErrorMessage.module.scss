@@ -1,0 +1,28 @@
+.error {
+  position: absolute;
+  z-index: 1000;
+  margin-top: 5%;
+  background-color: #F8D7DA;
+  border-radius: 5px;
+  border: 1px solid #721C24;
+  padding: 15px;
+  min-width: 30%;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-between;
+
+  .errorMessage {
+    color: #721C24;
+    font-size: 18px;
+  }
+  .errorCloseBtn {
+    cursor: pointer;
+    color: #721C24;
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+    &:focus {
+      outline: none;
+    }
+  }
+}
