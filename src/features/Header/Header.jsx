@@ -20,7 +20,7 @@ const Header = ({ userData, isLogged, logOut, errorMessage }) => {
 
   return (
     <header className={styles.header}>
-      { isLogged && (<NavLink className={styles.homeLink} to='/home'>Home</NavLink>) }
+      { isLogged && <NavLink className={styles.homeLink} to='/home'>Home</NavLink> }
       <h1 className={styles.headerTitle}>Movies</h1>
       {
         isLogged && (

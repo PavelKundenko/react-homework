@@ -26,7 +26,7 @@ const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData })
     return validationErrors;
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
 
     updateErrors(() => []);
@@ -36,15 +36,21 @@ const SignUpPage = ({ history, loginChanged, passwordChanged, logIn, userData })
     if (validationErrors.length) {
       updateErrors(() => [...validationErrors]);
     } else {
-      Api.register(userData)
-        .then((response) => {
-          localStorage.setItem(localStorageObjects.CURRENT_USER, JSON.stringify(response.data));
+      try {
+        const { data, status } = await Api.register(userData);
+
+        if (status !== 200) {
+          updateErrors(() => ['Request failed. Try again later.'])
+        } else {
+          localStorage.setItem(localStorageObjects.CURRENT_USER, JSON.stringify(data));
 
           logIn();
 
           history.push('/home');
-        })
-        .catch(() => updateErrors(() => ['Request failed. Try again later.']))
+        }
+      } catch  {
+        updateErrors(() => ['Request failed. Try again later.'])
+      }
     }
   };
 

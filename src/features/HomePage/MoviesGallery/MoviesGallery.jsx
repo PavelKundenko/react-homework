@@ -10,10 +10,8 @@ import { filteredMoviesSelector, isMoviesLoadingSelector } from '../../../redux/
 import styles from './MoviesGallery.module.scss';
 
 class MoviesGallery extends Component{
-  componentDidMount = () => {
-    const { fetchMovies } = this.props;
-
-    fetchMovies()
+  componentDidMount() {
+    this.props.fetchMovies();
   };
 
   render() {

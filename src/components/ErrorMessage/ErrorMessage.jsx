@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { hideErrorMessage } from '../../redux/movies/movies.actions';
 import styles from './ErrorMessage.module.scss';
@@ -13,6 +14,11 @@ const ErrorMessage = ({ errorMessage, hideErrorMessage }) => (
 
 const mapDispatchToProps = {
   hideErrorMessage
+};
+
+ErrorMessage.propTypes = {
+  hideErrorMessage: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string.isRequired
 };
 
 export default connect(null, mapDispatchToProps)(ErrorMessage);

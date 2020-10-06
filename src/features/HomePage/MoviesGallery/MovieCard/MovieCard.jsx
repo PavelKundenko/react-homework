@@ -13,22 +13,22 @@ import styles from './MovieCard.module.scss';
 const MovieCard = ({ movieData, addLikeAsync, changeRatingAsync }) => {
   const { id, title, posterUrl, likes, stars } = movieData;
 
-  const changeLikesHandler = (likesAmount) => {
+  const changeLikesHandler = async (likesAmount) => {
     const updatedData = {
       ...movieData,
       likes: movieData.likes + likesAmount
     };
 
-    addLikeAsync(id, updatedData);
+    await addLikeAsync(id, updatedData);
   };
 
-  const changeRatingHandler = (movieId, newRating) => {
+  const changeRatingHandler = async (movieId, newRating) => {
     const updatedData = {
       ...movieData,
       stars: newRating
     };
 
-    changeRatingAsync(id, updatedData, newRating)
+    await changeRatingAsync(id, updatedData, newRating)
   };
 
   return (

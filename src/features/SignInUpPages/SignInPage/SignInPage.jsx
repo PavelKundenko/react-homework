@@ -15,7 +15,7 @@ import styles from '../SignInUpPage.module.scss';
 const SignInPage = ({ history, loginChanged, passwordChanged, logIn, userData, isUsersLoading }) => {
   const [errors, updateErrors] = useState('');
 
-  const submitHandler = (event) => {
+  const submitHandler = async(event) => {
     event.preventDefault();
 
     updateErrors(() => '');
@@ -25,19 +25,23 @@ const SignInPage = ({ history, loginChanged, passwordChanged, logIn, userData, i
     if (!login.trim() || !password.trim()) {
       updateErrors(() => 'Enter login and password.');
     } else {
-      Api.logIn(userData)
-        .then((response) => {
-          if (!response.data.length) {
-            updateErrors(() => 'Invalid login or password');
-          } else {
-            localStorage.setItem(localStorageObjects.CURRENT_USER, JSON.stringify(userData));
+      try {
+        const { data, status } = await Api.logIn(userData);
 
-            logIn();
+        if (status !== 200) {
+          updateErrors(() => 'Server error occurred. Try again later.')
+        } else if (!data.length) {
+          updateErrors(() => 'Invalid login or password');
+        } else {
+          localStorage.setItem(localStorageObjects.CURRENT_USER, JSON.stringify(userData));
 
-            history.push('/home');
-          }
-        })
-        .catch(() => updateErrors(() => 'Server error occurred. Try again later.'))
+          logIn();
+
+          history.push('/home');
+        }
+      } catch  {
+        updateErrors(() => 'Server error occurred. Try again later.')
+      }
     }
   };
 
